@@ -1,0 +1,17 @@
+.cart {
+    display: table;
+
+    img {
+        cursor: pointer;
+    }
+
+    div {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    font {
+        color: white;
+        font-size: 32px;
+    }
+}

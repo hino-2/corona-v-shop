@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { ProductsContext } from "../ProductsContext";
+import Cart from '../Cart';
 import './style.scss';
 
 const useStyles = makeStyles({
@@ -27,8 +28,6 @@ const NavBar = () => {
     const [username, setUsername] = useState('Vыживший');
 
     const context = useContext(ProductsContext);
-    console.log(context);
-    
 
     const classes = useStyles();
 
@@ -38,8 +37,11 @@ const NavBar = () => {
                 <div>{title}</div>
                 <div>{subtitle}</div>
             </div>
-            <div>
+            <div className="logo">
                 <img src="/logo.png" style={{"height": "60px"}} alt="CORONA V SHOP" />
+            </div>
+            <div className="cart">
+                <Cart />
             </div>
             <div className="greetings">
                 Привет, {username}.
