@@ -1,0 +1,168 @@
+[
+    {
+        "id": 1,
+        "category": "Бункеры",
+        "name": "Safe Bunker",
+        "photo": "/img/bunker/1.png",
+        "price": 15000,
+        "rooms": 2,
+        "desc": "Отличный 2к. бункер. Удобства на улице."
+    },
+    {
+        "id": 2,
+        "category": "Бункеры",
+        "name": "Safe Bunker Deluxe",
+        "photo": "/img/bunker/2.png",
+        "price": 20000,
+        "rooms": 3,
+        "desc": "Отличный 3к. бункер. Удобства на улице, но мы оградили проход к ним колючей проволокой только для вас."
+    },
+    {
+        "id": 3,
+        "category": "Бункеры",
+        "name": "Safe Bunker Digital Deluxe",
+        "photo": "/img/bunker/3.png",
+        "price": 25000,
+        "rooms": 4,
+        "desc": "Отличный 4к. бункер. Бетонированные удобства с защищенным проходом и телевизором. На улице."
+    },
+    {
+        "id": 4,
+        "category": "Бункеры",
+        "name": "Safe Bunker Premium",
+        "photo": "/img/bunker/4.png",
+        "price": 35000,
+        "rooms": 5,
+        "desc": "Отличный 5к. бункер. Удобства на улице, есть Wi-Fi."
+    },
+    {
+        "id": 5,
+        "category": "Бункеры",
+        "name": "Safe Bunker Premium Standart",
+        "photo": "/img/bunker/5.png",
+        "price": 40000,
+        "rooms": 6,
+        "desc": "Отличный 6к. бункер. Удобства внутри, есть Wi-Fi и коврик."
+    },
+    {
+        "id": 6,
+        "category": "Оружие",
+        "name": "АК-47",
+        "photo": "/img/weapon/1.png",
+        "price": 2000,
+        "rounds": 30,
+        "desc": "Обычный АК-47. Стандарт для любого апокалипсиса."
+    },
+    {
+        "id": 7,
+        "category": "Оружие",
+        "name": "АК-74",
+        "photo": "/img/weapon/2.png",
+        "price": 2500,
+        "rounds": 30,
+        "desc": "АК-47 поновее. Делюкс для любого апокалипсиса."
+    },
+    {
+        "id": 8,
+        "category": "Оружие",
+        "name": "P90",
+        "photo": "/img/weapon/3.png",
+        "price": 2070,
+        "rounds": 50,
+        "desc": "Не АК. Много патронов в магазине."
+    },
+    {
+        "id": 9,
+        "category": "Оружие",
+        "name": "Barrett 82A1 10 Rd Semi .416",
+        "photo": "/img/weapon/4.png",
+        "price": 6400,
+        "rounds": 5,
+        "desc": "Мощная снайперская винтовка для случаев, когда надо отработать по бронированному лидеру зомби издалека."
+    },
+    {
+        "id": 10,
+        "category": "Оружие",
+        "name": "G36C",
+        "photo": "/img/weapon/5.png",
+        "price": 9999,
+        "rounds": 30,
+        "desc": "Лучшее оружие в мире."
+    },
+    {
+        "id": 11,
+        "category": "Хозтовары",
+        "name": "Лопата",
+        "photo": "/img/misc/1.png",
+        "price": 10,
+        "desc": "Просто лопата"
+    },
+    {
+        "id": 12,
+        "category": "Хозтовары",
+        "name": "Совок",
+        "photo": "/img/misc/2.png",
+        "price": 5,
+        "desc": "Просто совок"
+    },
+    {
+        "id": 13,
+        "category": "Хозтовары",
+        "name": "Перфоратор",
+        "photo": "/img/misc/3.png",
+        "price": 100,
+        "desc": "Для коротания вечеров"
+    },
+    {
+        "id": 14,
+        "category": "Хозтовары",
+        "name": "Лампочка",
+        "photo": "/img/misc/4.png",
+        "price": 2,
+        "desc": "Лампочка"
+    },
+    {
+        "id": 15,
+        "category": "Хозтовары",
+        "name": "Кактус",
+        "photo": "/img/misc/5.png",
+        "price": 20,
+        "desc": "Каждому нужен друг"
+    },
+    {
+        "id": 16,
+        "category": "Еда",
+        "name": "Гречка",
+        "photo": "/img/food/1.png",
+        "price": 1,
+        "amount": "1 кг",
+        "desc": "Обычная"
+    },
+    {
+        "id": 17,
+        "category": "Еда",
+        "name": "Рис",
+        "photo": "/img/food/2.png",
+        "price": 1.5,
+        "amount": "1 кг",
+        "desc": "Деликатесный"
+    },
+    {
+        "id": 18,
+        "category": "Еда",
+        "name": "Хлеб",
+        "photo": "/img/food/3.png",
+        "price": 1.2,
+        "amount": "1 шт",
+        "desc": "Батон Подмосковный нарезной"
+    },
+    {
+        "id": 19,
+        "category": "Еда",
+        "name": "Колбаса Докторская",
+        "photo": "/img/food/4.png",
+        "price": 20,
+        "amount": "1 кг",
+        "desc": "Проверьте срок годности"
+    }
+]
