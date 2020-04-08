@@ -6,7 +6,7 @@ import './style.scss';
 const useStyles = makeStyles({
     root: {
       fontFamily: 'Montserrat, sans-serif',
-      background: 'linear-gradient(270deg, #BA6400 0%, #BE2E00 100%);',
+    //   background: 'linear-gradient(270deg, #BA6400 0%, #BE2E00 100%);',
       borderRadius: 3,
       border: 0,
       color: 'white',

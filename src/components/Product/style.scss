@@ -6,10 +6,10 @@
 
 .product {
     min-height: 250px;
-    max-height: 360px;
+    max-height: 370px;
     border: #525252 solid 2px;
     border-radius: 10px;
-    background: #696969;
+    background: linear-gradient(180deg, #525252 0%, #696969 100%);
     color: white;
     @include box-shadow(0px 0px 0px 2px #f2c12a);
 
@@ -19,13 +19,14 @@
         "b b b b"
         "c c c c"
         "e e f f"
-        "g g g g";
+        "g g g g"
+        "h h i i";
     grid-template-rows: 1fr 4fr 1fr 1fr 4fr;
     
     img {
-        max-height: 180px;
-        max-width: 210px;
         padding: 2px;
+        max-width: 100%;
+        max-height: 180px;
     }
 
     div {

@@ -7,6 +7,15 @@
     padding: 7px;
     // font-family: Roboto;
 
+    @media only screen and (max-width: 760px) {
+        // display: inline-block;
+        grid-auto-rows: inherit;
+        grid-template-columns: inherit;
+        height: 100%;
+        background: #696969;
+        padding: 0;
+      }
+
     .title {
         display: grid;
         grid-template-rows: 2fr 1fr;
