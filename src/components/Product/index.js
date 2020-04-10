@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ProductsContext } from '../ProductsContext'
 import uniqid from "uniqid";
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,7 +9,8 @@ const useStyles = makeStyles({
     root: {
         fontFamily: 'Montserrat, sans-serif',
         fontSize: '22px',
-        background: 'linear-gradient(40deg, #df641a 70%, #ffdc56 150%)',
+        // background: 'radial-gradient(farthest-corner at 40px 190px, #f2c12a, #df641a)',
+        background: '#df641a',
         borderRadius: 3,
         border: 0,
         color: 'white',
@@ -16,6 +18,12 @@ const useStyles = makeStyles({
         width: 80,
         lineHeight: 'normal',
         padding: '0 5px',
+        transition: '0.3s all',
+        '&:hover': {
+            transform: 'scale(1.2)',
+            backgroundColor: '#df641a',
+            transition: '0.3s all'
+        }
     },
     label: {
         textTransform: 'capitalize',
@@ -25,6 +33,9 @@ const useStyles = makeStyles({
 const Product = ({ data }) => {
     const {id, category, name, photo, price, desc, ...other} = data;
     const classes = useStyles();
+    const context = useContext(ProductsContext);
+    // console.log(context);
+    
 
     return (
         <div className="product" key={uniqid()}>
@@ -58,7 +69,7 @@ const Product = ({ data }) => {
                 <Button classes={{
                     root: classes.root,
                     label: classes.label,
-                }}>
+                }} onClick={() => context.removeProductFromCart(id)}>
                     -
                 </Button>
             </div>
@@ -66,7 +77,7 @@ const Product = ({ data }) => {
                 <Button classes={{
                         root: classes.root,
                         label: classes.label,
-                    }}>
+                    }} onClick={() => context.addProductsToCart(data)}>
                         +
                 </Button>
             </div>

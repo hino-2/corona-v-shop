@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { ProductsContext } from "../ProductsContext";
-import Cart from '../Cart';
+import NavBarCart from '../NavBarCart';
 import './style.scss';
 
 const useStyles = makeStyles({
@@ -23,11 +23,11 @@ const useStyles = makeStyles({
 });
 
 const NavBar = () => {
-    const title = <font color="#EA7E00" style={{"fontSize": "26px"}}>CORONA V SHOP</font>;
-    const subtitle = <font color="white" style={{"fontSize": "20px"}}>V значит Vыживание</font>;
-    const [username, setUsername] = useState('Vыживший');
+    const title = <font color="#EA7E00" style={{"fontSize": "26px"}}>KORONA VI RUS SHOP</font>;
+    const subtitle = <font color="white" style={{"fontSize": "20px"}}>Шестой русский магазин КОРОНА</font>;
+    const [username, setUsername] = useState('друг');
 
-    const context = useContext(ProductsContext);
+    // const context = useContext(ProductsContext);
 
     const classes = useStyles();
 
@@ -38,10 +38,14 @@ const NavBar = () => {
                 <div>{subtitle}</div>
             </div>
             <div className="logo">
-                <img src="/logo.png" style={{"height": "60px"}} alt="CORONA V SHOP" />
+                <Link to="/">
+                    <img src="/logo.png" style={{"height": "60px"}} alt="CORONA V SHOP" />
+                </Link>
             </div>
-            <div className="cart">
-                <Cart />
+            <div className="navbarcart">
+                <Link to='/cart' style={{"textDecoration": "none"}}>
+                    <NavBarCart />
+                </Link>
             </div>
             <div className="greetings">
                 Привет, {username}.
