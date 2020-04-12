@@ -3,23 +3,18 @@ import { ProductsContext } from '../ProductsContext'
 import './style.scss';
 
 const NavBarCart = () => {
-    const context = useContext(ProductsContext).cart;
-    console.log(context);
+    const [context, setContext] = useContext(ProductsContext);
+    const cart = context.cart;
+    // console.log(cart);
     
-    const showCart = () => {
-        console.log('show cart');
-        
-    }
-
     return (
         <>
             <img src="/img/cart.png" 
-                 onClick={showCart}
                  style={{"height": "50px"}} 
                  alt="Корзина" />
             <div>
                 <font>
-                    {context.length}
+                    {cart.length}
                 </font>
             </div>
         </>

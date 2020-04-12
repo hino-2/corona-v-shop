@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ProductsContext } from '../ProductsContext';
-import { Link } from 'react-router-dom';
 import uniqid from "uniqid";
+import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import './style.scss';
@@ -16,8 +16,7 @@ const useStyles = makeStyles({
         border: 0,
         color: 'white',
         height: 30,
-        width: 50,
-        minWidth: 20,
+        width: 80,
         lineHeight: 'normal',
         padding: '0 5px',
         transition: '0.3s all',
@@ -32,25 +31,31 @@ const useStyles = makeStyles({
     },
 });
 
-const Product = ({ data }) => {
-    const {id, category, name, photo, price, desc, ...other} = data;
-    const classes = useStyles();
+const ProductDetail = ({ match }) => {
     const [context, setContext] = useContext(ProductsContext);
+    const product = context.products.find((item) => item.name === match.params.name);
+    const {id, category, name, photo, price, desc, ...other} = product;
+
+    const classes = useStyles();
+
+    // useEffect(() => {
+    //     document.querySelector('.product-details img').style.maxWidth = '100%';
+    // },[]);
 
     return (
-        <div className="product" key={uniqid()}>
+        <div className="product-details" key={uniqid()}>
             <div style={{"gridArea": "a", "textAlign": "center"}}>
-                <Link to={`/product/${name}`} style={{"textDecoration": "none", "color": "white"}}>
+                <font style={{"fontSize": "32px", "color": "white"}}>
                     { name }
-                </Link>
+                </font>
             </div> 
             <div style={{"gridArea": "b", 
                          "minHeight": "180px", 
                          "display": "grid",
-                         "placeContent": "center"}}>
-                <Link to={`/product/${name}`}>
-                    <img src={ photo } alt="Фото" />
-                </Link>
+                         "placeContent": "center",
+                         "padding": "0",
+                         "minWidth": "200px"}}>
+                <img src={ photo } alt="Фото" />
             </div>
             <div style={{"display": "table", "gridArea": "c"}}>
                 <div style={{"display": "table-cell", "verticalAlign": "middle", "textAlign": "left", "padding": "0"}}>
@@ -69,7 +74,7 @@ const Product = ({ data }) => {
             <div style={{"gridArea": "g", "fontSize": "12px"}}>
                 { desc }
             </div>
-            <div style={{"gridArea": "h", "justifySelf": "start", "margin": "4px 0 0 10px"}}>
+            <div style={{"gridArea": "h", "justifySelf": "start", "marginLeft": "20px"}}>
                 <Button classes={{
                     root: classes.root,
                     label: classes.label,
@@ -77,12 +82,12 @@ const Product = ({ data }) => {
                     -
                 </Button>
             </div>
-            <div style={{"gridArea": "i", "justifySelf": "end", "margin": "4px 10px 0 0"}}>
+            <div style={{"gridArea": "i", "justifySelf": "end", "marginRight": "20px"}}>
                 <Button classes={{
-                        root: classes.root,
-                        label: classes.label,
-                    }} onClick={() => context.addProductsToCart(data)}>
-                        +
+                    root: classes.root,
+                    label: classes.label,
+                }} onClick={() => context.addProductsToCart(product)}>
+                    +
                 </Button>
             </div>
             <div style={{"gridArea": "j", "placeSelf": "center", "display": "table"}}>
@@ -94,10 +99,11 @@ const Product = ({ data }) => {
                     </Link>
                 </div>
                 <div style={{"display": "table-cell", "verticalAlign": "middle"}}>
-                    { context.cart.filter((item) => item.name === name).length }
+                    { context.cart.filter((item) => item.name === match.params.name).length }
                 </div>
-            </div>            
+            </div>
         </div>
     );
 }
- export default Product;
+
+export default ProductDetail;

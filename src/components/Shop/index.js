@@ -1,13 +1,11 @@
 import React from 'react';
-// import NavBar from '../NavBar';
 import CategoryBar from '../CategoryBar';
 import ProductList from '../ProductList';
 
-const Shop = () => (
+const Shop = ({ match }) => (
     <>
-        {/* <NavBar /> */}
         <CategoryBar />
-        <ProductList /> 
+        <ProductList category={match.params.category}/> 
     </>
 );
 
