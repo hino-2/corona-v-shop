@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 });
 
 const Cart = () => {
-    const [context, setContext] = useContext(ProductsContext);
+    const context = useContext(ProductsContext);
     const cart = context.cart;
     const classes = useStyles();
 

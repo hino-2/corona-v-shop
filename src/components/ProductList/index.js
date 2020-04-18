@@ -5,7 +5,7 @@ import Product from "../Product";
 import './style.scss';
 
 const ProductList = ({ category }) => {
-    const [context, setContext] = useContext(ProductsContext);
+    const context = useContext(ProductsContext);
     const products = context.products;
 
     return (

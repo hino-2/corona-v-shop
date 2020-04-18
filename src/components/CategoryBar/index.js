@@ -6,7 +6,7 @@ import { ProductsContext } from '../ProductsContext';
 import './style.scss';
 
 const CategoryBar = () => {
-    const [context, setContext] = useContext(ProductsContext);
+    const context = useContext(ProductsContext);
     
     let categories = new Set();
     context.products.forEach(item => categories.add(item.category));

@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 const Product = ({ data }) => {
     const {id, category, name, photo, price, desc, ...other} = data;
     const classes = useStyles();
-    const [context, setContext] = useContext(ProductsContext);
+    const context = useContext(ProductsContext);
 
     return (
         <div className="product" key={uniqid()}>
@@ -45,7 +45,7 @@ const Product = ({ data }) => {
                 </Link>
             </div> 
             <div style={{"gridArea": "b", 
-                         "minHeight": "180px", 
+                         "minHeight": "220px", 
                          "display": "grid",
                          "placeContent": "center"}}>
                 <Link to={`/product/${name}`}>
@@ -67,7 +67,7 @@ const Product = ({ data }) => {
                 { other[Object.keys(other)[0]] }
             </div>
             <div style={{"gridArea": "g", "fontSize": "12px"}}>
-                { desc }
+                {/* { desc } */}
             </div>
             <div style={{"gridArea": "h", "justifySelf": "start", "margin": "4px 0 0 10px"}}>
                 <Button classes={{

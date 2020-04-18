@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 });
 
 const ProductDetail = ({ match }) => {
-    const [context, setContext] = useContext(ProductsContext);
+    const context = useContext(ProductsContext);
     const product = context.products.find((item) => item.name === match.params.name);
     const {id, category, name, photo, price, desc, ...other} = product;
 

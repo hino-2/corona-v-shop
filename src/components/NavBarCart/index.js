@@ -3,7 +3,7 @@ import { ProductsContext } from '../ProductsContext'
 import './style.scss';
 
 const NavBarCart = () => {
-    const [context, setContext] = useContext(ProductsContext);
+    const context = useContext(ProductsContext);
     const cart = context.cart;
     // console.log(cart);
     

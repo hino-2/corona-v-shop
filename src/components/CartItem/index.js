@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
 const CartItem = ({ data }) => {
 	const { id, category, name, photo, price, desc, ...other } = data;
-	const [context, setContext] = useContext(ProductsContext);
+	const context = useContext(ProductsContext);
 
 	const classes = useStyles();
 

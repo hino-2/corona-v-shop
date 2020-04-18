@@ -1,0 +1,9 @@
+.checkout {
+    display: grid;
+    grid-template-rows: 1fr 7fr 1fr 1fr;
+    grid-auto-rows: minmax(70px, auto);
+    width: 100%;
+    height: 100%;
+    font-size: 40px;
+    color: white;
+}

@@ -10,8 +10,10 @@ export const ProductsProvider = (props) => {
             return {
                 products: productsJSON,
                 cart: [...prevContext.cart, product],
+                user: prevContext.user,
                 addProductsToCart: addProductToCart,
-                removeProductFromCart: removeProductFromCart
+                removeProductFromCart: removeProductFromCart,
+                setUser: setUser
             }
         });
     };
@@ -26,22 +28,39 @@ export const ProductsProvider = (props) => {
             return {
                 products: productsJSON,
                 cart: newCart,
+                user: prevContext.user,
                 addProductsToCart: addProductToCart,
-                removeProductFromCart: removeProductFromCart
+                removeProductFromCart: removeProductFromCart,
+                setUser: setUser
             }
         });
     };
 
+    const setUser = (user) => {
+        setContext(prevContext => {
+            return {
+                products: productsJSON,
+                cart: prevContext.cart,
+                user: user,
+                addProductsToCart: addProductToCart,
+                removeProductFromCart: removeProductFromCart,
+                setUser: setUser
+            }
+        })
+    }
+
     const [context, setContext] = useState({
         products: productsJSON,
         cart: [],
+        user: {},
         addProductsToCart: addProductToCart,
-        removeProductFromCart: removeProductFromCart
+        removeProductFromCart: removeProductFromCart,
+        setUser: setUser
     });
     // console.log(context);
     
     return (
-        <ProductsContext.Provider value={[context, setContext]}>
+        <ProductsContext.Provider value={context}>
             {props.children}
         </ProductsContext.Provider>
     );
