@@ -9,7 +9,6 @@ export function ecomStartWidget(options) {
   widgetIframe.src = 'https://widget.pochta.ru/map/';
 
   // Adding iframe to container
-  console.log(options);
   const container = document.getElementById(options.containerId);
   container.appendChild(widgetIframe);
 

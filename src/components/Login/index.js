@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { ProductsContext } from '../ProductsContext';
+import { GeneralContext } from '../GeneralContext';
 import './style.scss';
 
 const useStyles = makeStyles({
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
 });
 
 const Login = () => {
-    const context = useContext(ProductsContext);
+    const context = useContext(GeneralContext);
     const history = useHistory();
     const classes = useStyles();
 
@@ -45,6 +46,8 @@ const Login = () => {
         console.log(user);
 
         if(user.userID) {
+            const cookie = new Cookies();
+            cookie.set('user', user, {path: "/", maxAge: 3600});
             context.setUser(user);
             history.push("/");
         }
@@ -55,16 +58,10 @@ const Login = () => {
             <div>
                 &nbsp;
             </div>
-            {/* <div>
-                <input type="email" id="email" placeholder="e-mail" required />
-            </div> */}
             <div className="form__group field">
                 <input type="input" className="form__field" placeholder="E-mail" id="email" autoComplete="false" required />
                 <label htmlFor="email" className="form__label">E-mail</label>
             </div>
-            {/* <div>
-                <input type="password" id="password" placeholder="пароль" required />
-            </div> */}
             <div className="form__group field">
                 <input type="password" className="form__field" placeholder="Пароль" id="password" required />
                 <label htmlFor="password" className="form__label">Пароль</label>

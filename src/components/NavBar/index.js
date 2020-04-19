@@ -4,19 +4,22 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import NavBarCart from '../NavBarCart';
 import './style.scss';
-import { ProductsContext } from '../ProductsContext';
+import { GeneralContext } from '../GeneralContext';
 
 const useStyles = makeStyles({
     root: {
-      background: 'linear-gradient(270deg, #BE2E00 0%, #BA6400 100%);',
-      borderRadius: 3,
-      border: 0,
-      color: 'white',
-      height: 48,
-      lineHeight: 'normal',
-      padding: '0 20px',
-      minWidth: '100px'
-    //   boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    //   background: 'linear-gradient(270deg, #BE2E00 0%, #BA6400 100%);',
+        background: '#df641a',  
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        lineHeight: 'normal',
+        padding: '0 20px',
+        minWidth: '100px',
+        "&:hover": {
+          backgroundColor: "#cc9a00",
+        }
     },
     label: {
       textTransform: 'capitalize',
@@ -24,35 +27,42 @@ const useStyles = makeStyles({
 });
 
 const NavBar = () => {
-    const title = <font color="#EA7E00" style={{"fontSize": "26px"}}>KORONA VI RUS SHOP</font>;
-    const subtitle = <font color="white" style={{"fontSize": "20px"}}>Шестой русский магазин КОРОНА</font>;
-    const context                 = useContext(ProductsContext);
+    const title    = <font color="#EA7E00" style={{"fontSize": "26px"}}>KORONA VI RUS SHOP</font>;
+    const subtitle = <font color="#FFFFFF" style={{"fontSize": "20px"}}>Шестой русский магазин КОРОНА</font>;
+    const context                 = useContext(GeneralContext);
     const [username, setUsername] = useState('друг');
     const [saldo, setSaldo]       = useState('');
 
     const classes = useStyles();
 
+    const thereIsALoggedInUser = () => {
+        if(!context.user || Object.keys(context.user).length === 0)
+            return false;
+
+        return true;
+    }
+
     useEffect(() => {
-        if(!context.user.username) {
-            setUsername('друг');
+        if(thereIsALoggedInUser()) {
+            setUsername(context.user.username);
             return;
         }
-
-        setUsername(context.user.username);
-    }, [context.user.username]);
+        
+        setUsername('друг');
+    }, [context.user]);
     
     useEffect(() => {
-        if(!context.user.saldo) {
-            setSaldo('');
+        if(thereIsALoggedInUser()) {
+            setSaldo(
+                <font style={{color: "white", fontSize:"12px", paddingTop: "2px"}}> 
+                    {`Счёт: ${context.user.saldo} ₽`} 
+                </font>
+            );
             return;
         }
 
-        setSaldo(
-            <font style={{color: "white", fontSize:"12px"}}> 
-                {`Счёт: ${context.user.saldo} ₽`} 
-            </font>
-        );
-    }, [context.user.saldo]);
+        setSaldo('');
+    }, [context.user]);
 
     return(
         <div className="navbar">
@@ -62,7 +72,7 @@ const NavBar = () => {
             </div>
             <div className="logo">
                 <Link to="/">
-                    <img src="/logo.png" style={{"height": "60px"}} alt="CORONA V SHOP" />
+                    <img src="/logo.png" style={{"height": "60px"}} alt="CORONA VI RUS SHOP" />
                 </Link>
             </div>
             <div className="navbarcart">
@@ -74,12 +84,13 @@ const NavBar = () => {
                 Привет, {username}.
             </div>
             <div className="account">
-                <Link to={ saldo === '' ? '/login' : '/logout' } style={{"textDecoration": "none"}}>
+                <Link to={ thereIsALoggedInUser() ? '/logout' : '/login' } 
+                      style={{"textDecoration": "none"}}>
                     <Button classes={{
                         root: classes.root,
                         label: classes.label,
                     }}>
-                        { saldo === '' ? 'Вход' : 'Выход' }
+                        { thereIsALoggedInUser() ? 'Выход' : 'Вход' }
                     </Button>
                 </Link>
                 { saldo }

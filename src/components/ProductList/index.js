@@ -1,11 +1,11 @@
 import React, { useContext }  from 'react';
 import uniqid from "uniqid";
-import { ProductsContext } from '../ProductsContext';
+import { GeneralContext } from '../GeneralContext';
 import Product from "../Product";
 import './style.scss';
 
 const ProductList = ({ category }) => {
-    const context = useContext(ProductsContext);
+    const context = useContext(GeneralContext);
     const products = context.products;
 
     return (

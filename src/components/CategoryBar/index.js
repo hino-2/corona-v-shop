@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import uniqid from 'uniqid';
 import Category from "../Category";
-import { ProductsContext } from '../ProductsContext';
+import { GeneralContext } from '../GeneralContext';
 import './style.scss';
 
 const CategoryBar = () => {
-    const context = useContext(ProductsContext);
+    const context = useContext(GeneralContext);
     
     let categories = new Set();
     context.products.forEach(item => categories.add(item.category));

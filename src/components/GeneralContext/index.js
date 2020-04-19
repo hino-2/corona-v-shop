@@ -1,9 +1,14 @@
 import React, { useState, createContext } from 'react';
+import Cookies from 'universal-cookie';
 import productsJSON from './products.json';
 
-export const ProductsContext = createContext();
+export const GeneralContext = createContext();
 
-export const ProductsProvider = (props) => {
+export const ContextProvider = (props) => {
+    const cookies = new Cookies();
+    const [user, _setUser] = useState(cookies.get('user'));
+    console.log('user cookie: ', user);
+
     const addProductToCart = (product) => {
         setContext(prevContext => { 
             console.log([...prevContext.cart, product])
@@ -52,7 +57,7 @@ export const ProductsProvider = (props) => {
     const [context, setContext] = useState({
         products: productsJSON,
         cart: [],
-        user: {},
+        user: user,
         addProductsToCart: addProductToCart,
         removeProductFromCart: removeProductFromCart,
         setUser: setUser
@@ -60,8 +65,8 @@ export const ProductsProvider = (props) => {
     // console.log(context);
     
     return (
-        <ProductsContext.Provider value={context}>
+        <GeneralContext.Provider value={context}>
             {props.children}
-        </ProductsContext.Provider>
+        </GeneralContext.Provider>
     );
 }

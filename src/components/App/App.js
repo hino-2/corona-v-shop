@@ -6,12 +6,12 @@ import ProductDetail from '../ProductDetail';
 import Checkout from '../Checkout';
 import Login from '../Login';
 import Logout from '../Logout';
-import { ProductsProvider } from '../ProductsContext';
+import { ContextProvider } from '../GeneralContext';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
 
 const App = () => (
-  <ProductsProvider>
+  <ContextProvider>
     <BrowserRouter>
       <NavBar />
       <div className="app">
@@ -26,7 +26,7 @@ const App = () => (
         </Switch>
       </div>
     </BrowserRouter>
-  </ProductsProvider>
+  </ContextProvider>
 )
 
 

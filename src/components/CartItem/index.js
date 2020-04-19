@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ProductsContext } from "../ProductsContext";
+import { GeneralContext } from "../GeneralContext";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import "./style.scss";
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 
 const CartItem = ({ data }) => {
 	const { id, category, name, photo, price, desc, ...other } = data;
-	const context = useContext(ProductsContext);
+	const context = useContext(GeneralContext);
 
 	const classes = useStyles();
 

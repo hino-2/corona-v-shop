@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ProductsContext } from '../ProductsContext';
+import { GeneralContext } from '../GeneralContext';
 import uniqid from "uniqid";
 import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 });
 
 const ProductDetail = ({ match }) => {
-    const context = useContext(ProductsContext);
+    const context = useContext(GeneralContext);
     const product = context.products.find((item) => item.name === match.params.name);
     const {id, category, name, photo, price, desc, ...other} = product;
 

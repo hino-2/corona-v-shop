@@ -3,7 +3,7 @@ import uniqid from 'uniqid';
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { ProductsContext } from '../ProductsContext';
+import { GeneralContext } from '../GeneralContext';
 import CartItem from "../CartItem";
 import './style.scss';
 
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 });
 
 const Cart = () => {
-    const context = useContext(ProductsContext);
+    const context = useContext(GeneralContext);
     const cart = context.cart;
     const classes = useStyles();
 

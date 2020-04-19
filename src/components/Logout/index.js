@@ -1,13 +1,16 @@
 import { useContext, useEffect } from 'react';
-import { ProductsContext } from '../ProductsContext';
+import { useHistory } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import { GeneralContext } from '../GeneralContext';
 
 const Logout = () => {
     // window.location.href = 'http://localhost:3001/logout';
-    const context = useContext(ProductsContext);
+    const context = useContext(GeneralContext);
+    const history = useHistory();
 
     useEffect(() => {
         const doLogout = async () => {
-            const responce = await fetch('/logout?_method=DELETE', {
+            const responce = await fetch('/logoutUser?_method=DELETE', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -20,11 +23,13 @@ const Logout = () => {
             console.log(result)
             if(result.result === 'success') {
                 context.setUser({})
-                window.location.href = '/'
+                const cookie = new Cookies();
+                cookie.remove('user');
+                history.push("/");
             }
         }
         doLogout();
-    })
+    }, [])
     
     return null;
 }

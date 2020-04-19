@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ProductsContext } from '../ProductsContext';
+import { GeneralContext } from '../GeneralContext';
 import { Link } from 'react-router-dom';
 import uniqid from "uniqid";
 import Button from '@material-ui/core/Button';
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 const Product = ({ data }) => {
     const {id, category, name, photo, price, desc, ...other} = data;
     const classes = useStyles();
-    const context = useContext(ProductsContext);
+    const context = useContext(GeneralContext);
 
     return (
         <div className="product" key={uniqid()}>
