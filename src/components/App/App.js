@@ -6,6 +6,7 @@ import ProductDetail from '../ProductDetail';
 import Checkout from '../Checkout';
 import Login from '../Login';
 import Logout from '../Logout';
+import OrderRegistered from '../OrderRegistered';
 import { ContextProvider } from '../GeneralContext';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/checkout" component={Checkout} />
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
+          <Route path="/orderRegistered" component={OrderRegistered} />
         </Switch>
       </div>
     </BrowserRouter>

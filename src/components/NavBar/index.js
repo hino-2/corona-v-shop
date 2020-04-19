@@ -90,7 +90,7 @@ const NavBar = () => {
                         root: classes.root,
                         label: classes.label,
                     }}>
-                        { thereIsALoggedInUser() ? 'Выход' : 'Вход' }
+                        { thereIsALoggedInUser() ? 'Выйти' : 'Войти' }
                     </Button>
                 </Link>
                 { saldo }

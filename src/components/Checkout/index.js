@@ -1,6 +1,7 @@
 import React, {useContext, 
                useEffect, 
                useState}   from 'react';
+import { useHistory }      from 'react-router-dom';
 import Button              from '@material-ui/core/Button';
 import { makeStyles }      from '@material-ui/core/styles';
 import { GeneralContext }  from '../GeneralContext';
@@ -41,8 +42,9 @@ const useStyles = makeStyles({
 
 const Checkout = () => {
     const context = useContext(GeneralContext);
+    const history = useHistory();
     const cart    = context.cart;
-    
+        
     const [deliveryAddress, setDeliveryAddress] = useState('');
     const [deliveryPrice, setDeliveryPrice]     = useState('');
     const [deliveryData, setDeliveryData]       = useState('');
@@ -67,7 +69,25 @@ const Checkout = () => {
         if(isNaN(order.total))
             return;
 
-        console.log('order:', order);
+        // console.log('order:', order);
+        const responce = await fetch('/registerOrder', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({order: order})
+        });
+        const result = await responce.json();
+
+        if(result.orderID)
+            context.emptyCart();
+            history.push({
+                pathname: '/orderRegistered',
+                state: {
+                    orderID: result.orderID
+                }
+            });
     }
 
     useEffect(() => {
@@ -99,12 +119,14 @@ const Checkout = () => {
                 {total}
             </div>
             <div style={{placeSelf: "center", margin: "30px"}}>
-                {cart.length > 0 ? 
+                {(cart.length > 0 && deliveryData !== '') ? 
                     <Button
                         classes={{
                             root: classes.root,
                             label: classes.label,
-                        }} onClick={() => registerNewOrder({
+                        }} 
+                        onClick={() => registerNewOrder({
+                            userID: (context.user && context.user.userID) || undefined, 
                             listOfProducts: cart, 
                             delivery: deliveryData,
                             total: cart.reduce((total, item) => total += item.price, 0) + deliveryData.cashOfDelivery/100
@@ -118,11 +140,7 @@ const Checkout = () => {
                             root: classes.root,
                             label: classes.label,
                             disabled: classes.disabled
-                        }} onClick={() => registerNewOrder({
-                            listOfProducts: cart, 
-                            delivery: deliveryData,
-                            total: cart.reduce((total, item) => total += item.price, 0) + deliveryData.cashOfDelivery/100
-                        })}>
+                        }}>
                         ЗАКАЗАТЬ
                     </Button>
                 }

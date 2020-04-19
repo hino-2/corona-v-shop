@@ -8,15 +8,18 @@ import './style.scss';
 
 const useStyles = makeStyles({
     root: {
-      background: 'linear-gradient(270deg, #BE2E00 0%, #BA6400 100%);',
-      borderRadius: 3,
-      border: 0,
-      color: 'white',
-      height: 48,
-      lineHeight: 'normal',
-      padding: '0 20px',
-      minWidth: '100px'
-    //   boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        background: '#df641a', 
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 62,
+        width: 300,
+        lineHeight: 'normal',
+        padding: '0 20px',
+        minWidth: '100px',
+        "&:hover": {
+            backgroundColor: "#cc9a00",
+        }
     },
     label: {
       textTransform: 'capitalize',

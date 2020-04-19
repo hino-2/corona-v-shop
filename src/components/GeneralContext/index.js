@@ -18,6 +18,7 @@ export const ContextProvider = (props) => {
                 user: prevContext.user,
                 addProductsToCart: addProductToCart,
                 removeProductFromCart: removeProductFromCart,
+                emptyCart: emptyCart,
                 setUser: setUser
             }
         });
@@ -36,10 +37,25 @@ export const ContextProvider = (props) => {
                 user: prevContext.user,
                 addProductsToCart: addProductToCart,
                 removeProductFromCart: removeProductFromCart,
+                emptyCart: emptyCart,
                 setUser: setUser
             }
         });
     };
+
+    const emptyCart = () => {
+        setContext(prevContext => {
+            return {
+                products: productsJSON,
+                cart: [],
+                user: prevContext.user,
+                addProductsToCart: addProductToCart,
+                removeProductFromCart: removeProductFromCart,
+                emptyCart: emptyCart,
+                setUser: setUser
+            }
+        })
+    }
 
     const setUser = (user) => {
         setContext(prevContext => {
@@ -49,6 +65,7 @@ export const ContextProvider = (props) => {
                 user: user,
                 addProductsToCart: addProductToCart,
                 removeProductFromCart: removeProductFromCart,
+                emptyCart: emptyCart,
                 setUser: setUser
             }
         })
@@ -60,6 +77,7 @@ export const ContextProvider = (props) => {
         user: user,
         addProductsToCart: addProductToCart,
         removeProductFromCart: removeProductFromCart,
+        emptyCart: emptyCart,
         setUser: setUser
     });
     // console.log(context);
