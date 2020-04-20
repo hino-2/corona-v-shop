@@ -7,6 +7,8 @@ import Checkout from '../Checkout';
 import Login from '../Login';
 import Logout from '../Logout';
 import OrderRegistered from '../OrderRegistered';
+import LK from '../LK';
+import Register from '../Register';
 import { ContextProvider } from '../GeneralContext';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.scss';
@@ -23,8 +25,10 @@ const App = () => (
           <Route path="/product/:name" component={ProductDetail} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
           <Route path="/logout" component={Logout} />
           <Route path="/orderRegistered" component={OrderRegistered} />
+          <Route path="/LK" component={LK} />
         </Switch>
       </div>
     </BrowserRouter>

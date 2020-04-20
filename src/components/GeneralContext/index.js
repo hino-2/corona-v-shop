@@ -7,7 +7,8 @@ export const GeneralContext = createContext();
 export const ContextProvider = (props) => {
     const cookies = new Cookies();
     const [user, _setUser] = useState(cookies.get('user'));
-    console.log('user cookie: ', user);
+
+    // TODO: сделать что-то с повторяющимися объектами ффс
 
     const addProductToCart = (product) => {
         setContext(prevContext => { 

@@ -68,7 +68,7 @@ const NavBar = () => {
         <div className="navbar">
             <div className="title">
                 <div>{title}</div>
-                <div>{subtitle}</div>
+                {window.innerWidth > 760 ? <div>{subtitle}</div> : '' }
             </div>
             <div className="logo">
                 <Link to="/">
@@ -81,7 +81,14 @@ const NavBar = () => {
                 </Link>
             </div>
             <div className="greetings">
-                Привет, {username}.
+                {`Привет, `}
+                { thereIsALoggedInUser() ?
+                    <Link to='/LK' style={{color: "#fedd56"}}>
+                        {username}
+                    </Link>
+                    :
+                    `${username}`
+                }
             </div>
             <div className="account">
                 <Link to={ thereIsALoggedInUser() ? '/logout' : '/login' } 

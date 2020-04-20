@@ -71,7 +71,7 @@ const ProductDetail = ({ match }) => {
             <div style={{"gridArea": "f", "justifySelf": "end"}}>
                 { other[Object.keys(other)[0]] }
             </div>
-            <div style={{"gridArea": "g", "fontSize": "12px"}}>
+            <div style={{"gridArea": "g", "fontSize": "16px"}}>
                 { desc }
             </div>
             <div style={{"gridArea": "h", "justifySelf": "start", "marginLeft": "20px"}}>

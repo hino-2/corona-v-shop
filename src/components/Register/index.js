@@ -1,9 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { Link, useHistory }  from 'react-router-dom';
-import Cookies               from 'universal-cookie';
-import Button                from '@material-ui/core/Button';
-import { makeStyles }        from '@material-ui/core/styles';
-import { GeneralContext }    from '../GeneralContext';
+import React, { useState } from 'react';
+import { useHistory }      from 'react-router-dom';
+import Button              from '@material-ui/core/Button';
+import { makeStyles }      from '@material-ui/core/styles';
 import './style.scss';
 
 const useStyles = makeStyles({
@@ -26,44 +24,65 @@ const useStyles = makeStyles({
     },
 });
 
-const Login = () => {
-    const context = useContext(GeneralContext);
+const Register = () => {
     const history = useHistory();
     const classes = useStyles();
 
     const [message, setMessage] = useState('');
 
+    const handleSuccessfulRegistration = () => {
+        document.querySelector('#name').value     = '';
+        document.querySelector('#email').value    = '';
+        document.querySelector('#password').value = '';
+        setMessage(
+            <div style={{display: "block", textAlign: "center"}}>
+                Вы зарегистрированы<br />
+                Через 3 секунды появится страница входа
+            </div>
+        );
+        setTimeout(() => {
+            history.push('/login');
+        }, 3000);
+    }
+
     const logIn = async () => {
         const email = document.querySelector('#email').value;
         const pass  = document.querySelector('#password').value;
+        const name  = document.querySelector('#name').value;
 
-        if(!email || !pass) return
+        if(!email || !pass || !name) return
         
-        const responce = await fetch('/login', {
+        const responce = await fetch('/register', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({"email": email, "password": pass})
+            body: JSON.stringify({"name": name, "email": email, "password": pass})
         });
-        const user = await responce.json();
-        console.log(user);
+        const result = await responce.json();
 
-        if(user.userID) {
-            const cookie = new Cookies();
-            cookie.set('user', user, {path: "/", maxAge: 3600});
-            context.setUser(user);
-            history.push("/");
-        } else {
-            setMessage('Неправильный e-mail или пароль')
+        switch (result.result) {
+            case 'success':
+                handleSuccessfulRegistration();
+                break;
+            case 'existing email':
+                setMessage('Пользователь с такой электронной почтой уже зарегистрирован');
+                break;
+            default:
+                setMessage('Регистрация не удалась');
+                break;
         }
     }
 
     return (
-        <div className="login">
+        <div className="register">
             <div>
                 &nbsp;
+            </div>
+            <div className="form__group field">
+                <input type="input" className="form__field" placeholder="Имя" id="name" autoComplete="false" required />
+                <label htmlFor="name" className="form__label">Имя</label>
             </div>
             <div className="form__group field">
                 <input type="input" className="form__field" placeholder="E-mail" id="email" autoComplete="false" required />
@@ -81,21 +100,11 @@ const Login = () => {
                     root: classes.root,
                     label: classes.label,
                 }} onClick={() => logIn()}>
-                    Войти
+                    Зарегистрироваться
                 </Button>
             </div>
             <div>
                 &nbsp;
-            </div>
-            <div>
-                <Link to='/register' style={{textDecoration: "none"}}>
-                    <Button classes={{
-                        root: classes.root,
-                        label: classes.label,
-                    }} onClick={() => logIn()}>
-                        Регистрация
-                    </Button>
-                </Link>
             </div>
             <div style={{marginTop: "30px"}}>
                 {message}
@@ -104,4 +113,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default Register;

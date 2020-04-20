@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import Cookies from 'universal-cookie';
-import { GeneralContext } from '../GeneralContext';
+import { useHistory }            from 'react-router-dom';
+import Cookies                   from 'universal-cookie';
+import { GeneralContext }        from '../GeneralContext';
 
 const Logout = () => {
     // window.location.href = 'http://localhost:3001/logout';
@@ -20,7 +20,6 @@ const Logout = () => {
             });
             const result = await responce.json();
 
-            console.log(result)
             if(result.result === 'success') {
                 context.setUser({})
                 const cookie = new Cookies();
