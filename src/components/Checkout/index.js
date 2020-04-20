@@ -53,7 +53,6 @@ const Checkout = () => {
     
     const getDeliveryInfoFromPochta = (data) => {
         const {indexTo, cashOfDelivery, cityTo, addressTo} = data;
-        // console.log(data);
         setDeliveryData(data);
         setDeliveryAddress(<>
             пункт выдачи {indexTo}<br />
@@ -63,13 +62,15 @@ const Checkout = () => {
         </>);
         setDeliveryPrice(<>за {cashOfDelivery/100} ₽</>);
         setTotal(<>Итого {cart.reduce((total, item) => total += item.price, 0) + cashOfDelivery/100} ₽</>);
+        document.querySelector('#delivery-result').scrollIntoView({ 
+            behavior: 'smooth' 
+        });
     }
 
     const registerNewOrder = async (order) => {
         if(isNaN(order.total))
             return;
 
-        // console.log('order:', order);
         const responce = await fetch('/registerOrder', {
             method: 'POST',
             headers: {
@@ -109,8 +110,8 @@ const Checkout = () => {
                     в
                 </font>
             </div>
-            <div id="ecom-widget" style={{height: "500px", width: "100%"}} />
-            <div style={{textAlign: "center", marginTop: "20px"}}>
+            <div id="ecom-widget" style={{height: "500px", width: "100%", placeContent: "center"}} />
+            <div id="delivery-result" style={{textAlign: "center", marginTop: "20px"}}>
                 { deliveryAddress }
                 <br />
                 { deliveryPrice }

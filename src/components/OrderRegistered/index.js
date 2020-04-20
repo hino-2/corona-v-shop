@@ -3,6 +3,12 @@ import React from 'react';
 const OrderRegistered = (props) => {
     if(!props.history.location.state)
         return null;
+
+    window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth'
+    });
     
     const {location: { state: { orderID } }} = props;
 
