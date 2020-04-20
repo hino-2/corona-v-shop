@@ -48,7 +48,6 @@ const Login = () => {
             body: JSON.stringify({"email": email, "password": pass})
         });
         const user = await responce.json();
-        console.log(user);
 
         if(user.userID) {
             const cookie = new Cookies();
