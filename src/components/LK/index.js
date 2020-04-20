@@ -1,6 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import uniqid from 'uniqid';
-import { GeneralContext } from '../GeneralContext';
+import React, { useContext, 
+                useEffect, 
+                useState } from 'react';
+import uniqid              from 'uniqid';
+import { GeneralContext }  from '../GeneralContext';
 import './style.scss'
 
 const LK = () => {

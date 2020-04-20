@@ -45,10 +45,10 @@ const Register = () => {
         }, 3000);
     }
 
-    const logIn = async () => {
+    const registerNewUser = async () => {
+        const name  = document.querySelector('#name').value;
         const email = document.querySelector('#email').value;
         const pass  = document.querySelector('#password').value;
-        const name  = document.querySelector('#name').value;
 
         if(!email || !pass || !name) return
         
@@ -99,7 +99,7 @@ const Register = () => {
                 <Button classes={{
                     root: classes.root,
                     label: classes.label,
-                }} onClick={() => logIn()}>
+                }} onClick={() => registerNewUser()}>
                     Зарегистрироваться
                 </Button>
             </div>

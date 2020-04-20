@@ -1,17 +1,16 @@
 import React, { useContext } from 'react';
-import uniqid from 'uniqid';
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import { GeneralContext } from '../GeneralContext';
-import CartItem from "../CartItem";
+import uniqid                from 'uniqid';
+import { Link }              from "react-router-dom";
+import Button                from "@material-ui/core/Button";
+import { makeStyles }        from "@material-ui/core/styles";
+import { GeneralContext }    from '../GeneralContext';
+import CartItem              from "../CartItem";
 import './style.scss';
 
 const useStyles = makeStyles({
 	root: {
 		fontFamily: "Montserrat, sans-serif",
 		fontSize: "22px",
-		// background: 'radial-gradient(farthest-corner at 40px 190px, #f2c12a, #df641a)',
 		background: "#df641a",
 		borderRadius: 3,
 		border: 0,
@@ -41,8 +40,7 @@ const useStyles = makeStyles({
 });
 
 const Cart = () => {
-    const context = useContext(GeneralContext);
-    const cart = context.cart;
+    const cart    = useContext(GeneralContext).cart;
     const classes = useStyles();
 
     return (

@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
-import { GeneralContext } from '../GeneralContext'
+import { GeneralContext }    from '../GeneralContext'
 import './style.scss';
 
 const NavBarCart = () => {
-    const context = useContext(GeneralContext);
-    const cart = context.cart;
-    // console.log(cart);
+    const cart = useContext(GeneralContext).cart;
     
     return (
         <>

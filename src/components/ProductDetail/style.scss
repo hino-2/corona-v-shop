@@ -5,9 +5,8 @@
 }
 
 .product-details {
+    display: grid;
     min-height: 380px;
-    // max-height: 380px;
-    height: 70vh;
     margin: 10px 2px;
     border: #525252 solid 2px;
     border-radius: 10px;
@@ -16,30 +15,9 @@
     color: white;
     @include box-shadow(0px 0px 0px 2px #f2c12a);
 
-    display: grid;
-    grid-template-areas: 
-        "a a a a"
-        "b b b b"
-        "b b b b"
-        "b b b b"
-        "b b b b"
-        "c c c c"
-        "e e f f"
-        "g g g g"
-        "h j j i";
-    grid-template-rows: 1fr 4fr 1fr 1fr 4fr;
-    
     img {
         height: 100%;
-        max-width: 100%;
-        max-height: 100%;
-        min-width: -webkit-fill-available;
-        // min-height: 100px;
-        border: 2px solid;
-
-        &:hover {
-            // z-index: 2;
-        }
+        max-height: 300px;
     }
 
     div {

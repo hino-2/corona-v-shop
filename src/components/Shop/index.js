@@ -1,11 +1,11 @@
-import React from 'react';
+import React       from 'react';
 import CategoryBar from '../CategoryBar';
 import ProductList from '../ProductList';
 
 const Shop = ({ match }) => (
     <>
         <CategoryBar />
-        <ProductList category={match.params.category}/> 
+        <ProductList category={match.params.category} /> 
     </>
 );
 

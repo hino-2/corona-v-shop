@@ -4,7 +4,6 @@ import Cookies                   from 'universal-cookie';
 import { GeneralContext }        from '../GeneralContext';
 
 const Logout = () => {
-    // window.location.href = 'http://localhost:3001/logout';
     const context = useContext(GeneralContext);
     const history = useHistory();
 

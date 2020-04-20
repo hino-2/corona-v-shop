@@ -1,6 +1,7 @@
-import React, { useState, createContext } from 'react';
-import Cookies from 'universal-cookie';
-import productsJSON from './products.json';
+import React, { useState, 
+                createContext } from 'react';
+import Cookies                  from 'universal-cookie';
+import productsJSON             from './products.json';
 
 export const GeneralContext = createContext();
 
@@ -12,7 +13,6 @@ export const ContextProvider = (props) => {
 
     const addProductToCart = (product) => {
         setContext(prevContext => { 
-            console.log([...prevContext.cart, product])
             return {
                 products: productsJSON,
                 cart: [...prevContext.cart, product],
@@ -81,7 +81,6 @@ export const ContextProvider = (props) => {
         emptyCart: emptyCart,
         setUser: setUser
     });
-    // console.log(context);
     
     return (
         <GeneralContext.Provider value={context}>

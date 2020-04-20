@@ -1,14 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import NavBarCart from '../NavBarCart';
+import React, { useState, 
+                useContext, 
+                useEffect } from 'react';
+import { Link }             from 'react-router-dom';
+import Button               from '@material-ui/core/Button';
+import { makeStyles }       from '@material-ui/core/styles';
+import NavBarCart           from '../NavBarCart';
+import { GeneralContext }   from '../GeneralContext';
 import './style.scss';
-import { GeneralContext } from '../GeneralContext';
 
 const useStyles = makeStyles({
     root: {
-    //   background: 'linear-gradient(270deg, #BE2E00 0%, #BA6400 100%);',
         background: '#df641a',  
         borderRadius: 3,
         border: 0,
@@ -45,14 +46,6 @@ const NavBar = () => {
     useEffect(() => {
         if(thereIsALoggedInUser()) {
             setUsername(context.user.username);
-            return;
-        }
-        
-        setUsername('друг');
-    }, [context.user]);
-    
-    useEffect(() => {
-        if(thereIsALoggedInUser()) {
             setSaldo(
                 <font style={{color: "white", fontSize:"12px", paddingTop: "2px"}}> 
                     {`Счёт: ${context.user.saldo} ₽`} 
@@ -60,7 +53,8 @@ const NavBar = () => {
             );
             return;
         }
-
+        
+        setUsername('друг');
         setSaldo('');
     }, [context.user]);
 
