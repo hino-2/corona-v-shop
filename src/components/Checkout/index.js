@@ -93,7 +93,9 @@ const Checkout = () => {
 
     useEffect(() => {
         ecomStartWidget({
-            id: 448,
+            // id: 448,   // localhost
+            // id: 457,      // gcloud
+            id: (window.location.href.match('localhost') ? 448 : 457),
             callbackFunction: getDeliveryInfoFromPochta,
             containerId: 'ecom-widget'
         });
