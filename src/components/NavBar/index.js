@@ -61,8 +61,18 @@ const NavBar = () => {
     return(
         <div className="navbar">
             <div className="title">
-                <div>{title}</div>
-                {window.innerWidth > 760 ? <div>{subtitle}</div> : '' }
+                <div>
+                    <Link to="/" style={{"textDecoration": "none"}}>
+                        {title}
+                    </Link>
+                </div>
+                {window.innerWidth > 760 ? 
+                    <div>
+                        <Link to="/" style={{"textDecoration": "none"}}>
+                            {subtitle}
+                        </Link>
+                    </div> 
+                : '' }
             </div>
             <div className="logo">
                 <Link to="/">

@@ -7,3 +7,15 @@
     font-size: 40px;
     color: white;
 }
+
+.delivery-result {
+    opacity: 0;
+    text-align: center; 
+    margin-top: 20px;
+    transition: opacity 0.5s;
+}
+
+.delivery-result-fadein {
+    opacity: 1;
+    transition: opacity 0.5s;
+}

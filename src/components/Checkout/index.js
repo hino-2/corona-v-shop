@@ -53,18 +53,29 @@ const Checkout = () => {
     
     const getDeliveryInfoFromPochta = (data) => {
         const {indexTo, cashOfDelivery, cityTo, addressTo} = data;
+        const divsWithDeliveryResultClass = document.querySelectorAll('.delivery-result');
+        const deliveryResultDiv           = document.querySelector('#delivery-result');
+        
+        divsWithDeliveryResultClass.forEach(
+            item => item.classList.remove('delivery-result-fadein')
+        );
         setDeliveryData(data);
-        setDeliveryAddress(<>
-            пункт выдачи {indexTo}<br />
-            <font style={{color: "#f67e22"}}>
-                {cityTo}, {addressTo}
-            </font>
-        </>);
-        setDeliveryPrice(<>за {cashOfDelivery/100} ₽</>);
-        setTotal(<>Итого {cart.reduce((total, item) => total += item.price, 0) + cashOfDelivery/100} ₽</>);
-        document.querySelector('#delivery-result').scrollIntoView({ 
-            behavior: 'smooth' 
-        });
+        
+        setTimeout(() => {
+            setDeliveryAddress(<>
+                пункт выдачи {indexTo}<br />
+                <font style={{color: "#f67e22"}}>
+                    {cityTo}, {addressTo}
+                </font>
+            </>);
+            setDeliveryPrice(<>за {cashOfDelivery/100} ₽</>);
+            setTotal(<>Итого {cart.reduce((total, item) => total += item.price, 0) + cashOfDelivery/100} ₽</>);
+            divsWithDeliveryResultClass.forEach(
+                item => item.classList.add('delivery-result-fadein')
+            );
+        }, (deliveryResultDiv.innerHTML === '<br>' ? 0 : 500));
+        
+        deliveryResultDiv.scrollIntoView({ behavior: 'smooth' });
     }
 
     const registerNewOrder = async (order) => {
@@ -113,12 +124,12 @@ const Checkout = () => {
                 </font>
             </div>
             <div id="ecom-widget" style={{height: "500px", width: "100%", placeContent: "center"}} />
-            <div id="delivery-result" style={{textAlign: "center", marginTop: "20px"}}>
+            <div id="delivery-result" className="delivery-result">
                 { deliveryAddress }
                 <br />
                 { deliveryPrice }
             </div>
-            <div style={{textAlign: "center", marginTop: "20px"}}>
+            <div className="delivery-result">
                 {total}
             </div>
             <div style={{placeSelf: "center", margin: "30px"}}>
