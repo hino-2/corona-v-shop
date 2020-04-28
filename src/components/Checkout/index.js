@@ -79,6 +79,7 @@ const Checkout = () => {
     }
 
     const registerNewOrder = async (order) => {
+        console.log(order)
         if(isNaN(order.total))
             return;
 

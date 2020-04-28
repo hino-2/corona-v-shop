@@ -4,6 +4,8 @@ import uniqid                from "uniqid";
 import Button                from '@material-ui/core/Button';
 import { makeStyles }        from '@material-ui/core/styles';
 import { GeneralContext }    from '../GeneralContext';
+import { Image, 
+         Transformation }    from 'cloudinary-react';
 import './style.scss';
 
 const useStyles = makeStyles({
@@ -48,7 +50,9 @@ const Product = ({ data }) => {
                          display: "grid",
                          placeContent: "center"}}>
                 <Link to={`/product/${name}`}>
-                    <img src={ photo } alt="Фото" />
+                    <Image cloudName="hino-2" publicId={`v1/corona-v-shop/${photo.replace('/img/', '')}`} >
+                        <Transformation height="180" quality="auto:good" crop="scale" />
+                    </Image>
                 </Link>
             </div>
             <div style={{display: "table", gridArea: "c"}}>

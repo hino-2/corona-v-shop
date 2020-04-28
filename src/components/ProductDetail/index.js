@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React, 
+    { useContext, useState, useEffect } from 'react';
 import { Link }              from "react-router-dom";
 import { GeneralContext }    from '../GeneralContext';
 import uniqid                from "uniqid";
 import Button                from '@material-ui/core/Button';
 import { makeStyles }        from '@material-ui/core/styles';
+import { Image, 
+         Transformation }    from 'cloudinary-react';
 import './style.scss';
 
 const useStyles = makeStyles({
@@ -35,7 +38,6 @@ const ProductDetail = ({ match }) => {
     const context = useContext(GeneralContext);
     const product = context.products.find((item) => item.name === match.params.name);
     const {id, category, name, photo, price, desc, ...other} = product;
-
     const classes = useStyles();
 
     return (
@@ -50,7 +52,9 @@ const ProductDetail = ({ match }) => {
                          padding: "0",
                          minWidth: "100%", 
                          gridColumn: "1/4"}}>
-                <img src={ photo } alt="Фото" />
+                <Image cloudName="hino-2" publicId={`v1/corona-v-shop/${photo.replace('/img/', '')}`}>
+                    <Transformation height="500" quality="auto:low" crop="scale" />
+                </Image>
             </div>
             <div style={{textAlign: "left", gridColumn: "1/3"}}>
                 Цена

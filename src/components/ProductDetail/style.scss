@@ -11,13 +11,14 @@
     border: #525252 solid 2px;
     border-radius: 10px;
     background: linear-gradient(180deg, #525252 0%, #696969 100%);
+    // background: #696969 url(//genomictestingcooperative.com/wp-content/uploads/lg.dna-spin-spiral-preloader.gif) no-repeat center;
     font-size: 26px;
     color: white;
     @include box-shadow(0px 0px 0px 2px #f2c12a);
 
     img {
         height: 100%;
-        max-height: 300px;
+        max-height: 500px;
     }
 
     div {

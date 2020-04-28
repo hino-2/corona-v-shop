@@ -10,6 +10,7 @@ import Logout          from '../Logout';
 import OrderRegistered from '../OrderRegistered';
 import LK              from '../LK';
 import Register        from '../Register';
+import AddMoney        from '../AddMoney';
 import './style.scss'
 
 const Container = ({ location }) => {
@@ -32,6 +33,7 @@ const Container = ({ location }) => {
                         <Route path="/login"              component={Login} />
                         <Route path="/logout"             component={Logout} />
                         <Route path="/LK"                 component={LK} />
+                        <Route path="/addMoney"           component={AddMoney} />
                     </Switch>
                 </section>
             </CSSTransition>

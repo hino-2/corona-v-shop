@@ -41,7 +41,8 @@ const Register = () => {
             </div>
         );
         setTimeout(() => {
-            history.push('/login');
+            if(history.location.pathname !== '/login')
+                history.push('/login');
         }, 3000);
     }
 
