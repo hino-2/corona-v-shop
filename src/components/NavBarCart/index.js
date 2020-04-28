@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
-import { GeneralContext }    from '../GeneralContext'
+import { GeneralContext }    from '../GeneralContext';
+import { Image, 
+         Transformation }    from 'cloudinary-react';
 import './style.scss';
 
 const NavBarCart = () => {
@@ -7,9 +9,9 @@ const NavBarCart = () => {
     
     return (
         <>
-            <img src="/img/cart.png" 
-                 style={{"height": "50px"}} 
-                 alt="Корзина" />
+            <Image cloudName="hino-2" publicId={`v1/corona-v-shop/cart.png`}>
+                <Transformation height="50" quality="auto:low" crop="scale" />
+            </Image>
             <div>
                 <font>
                     {cart.length}

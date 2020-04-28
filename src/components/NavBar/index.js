@@ -4,6 +4,8 @@ import React, { useState,
 import { Link }             from 'react-router-dom';
 import Button               from '@material-ui/core/Button';
 import { makeStyles }       from '@material-ui/core/styles';
+import { Image, 
+    Transformation }        from 'cloudinary-react';
 import NavBarCart           from '../NavBarCart';
 import { GeneralContext }   from '../GeneralContext';
 import './style.scss';
@@ -76,7 +78,9 @@ const NavBar = () => {
             </div>
             <div className="logo">
                 <Link to="/">
-                    <img src="/logo.png" style={{"height": "60px"}} alt="CORONA VI RUS SHOP" />
+                    <Image cloudName="hino-2" publicId={`v1/corona-v-shop/logo.png`}>
+                        <Transformation height="60" quality="auto:low" crop="scale" />
+                    </Image>
                 </Link>
             </div>
             <div className="navbarcart">

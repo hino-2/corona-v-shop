@@ -82,9 +82,9 @@ const ProductDetail = ({ match }) => {
             <div style={{placeSelf: "center", display: "table"}}>
                 <div style={{display: "table-cell", verticalAlign: "middle"}}>
                     <Link to={'/cart'}>
-                        <img src="/img/cart.png" 
-                            style={{height: "28px", width: "30px", maxWidth: "30px", maxHeight: "28px"}} 
-                            alt="Корзина" />
+                        <Image cloudName="hino-2" publicId={`v1/corona-v-shop/cart.png`}>
+                            <Transformation height="28" quality="auto:low" crop="scale" />
+                        </Image>
                     </Link>
                 </div>
                 <div style={{display: "table-cell", verticalAlign: "middle"}}>

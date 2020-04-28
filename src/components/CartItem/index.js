@@ -1,8 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } 			 from "react-router-dom";
 import { GeneralContext } 	 from "../GeneralContext";
 import Button 				 from "@material-ui/core/Button";
 import { makeStyles } 		 from "@material-ui/core/styles";
+import { Image, 
+		 Transformation }    from 'cloudinary-react';
 import "./style.scss";
 
 const useStyles = makeStyles({
@@ -41,7 +43,9 @@ const CartItem = ({ data }) => {
 				<Link
 					to={`/product/${name}`}
 					style={{ textDecoration: "none", color: "white", maxHeight: "inherit" }}>
-					<img src={photo} alt="Фото" />
+					<Image cloudName="hino-2" publicId={`v1/corona-v-shop/${photo.replace('/img/', '')}`}>
+                    	<Transformation height="100" quality="auto:low" crop="scale" />
+               	 	</Image>
 				</Link>
 			</div>
 			<div>
