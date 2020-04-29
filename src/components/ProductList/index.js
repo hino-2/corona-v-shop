@@ -12,7 +12,7 @@ const ProductList = ({ category }) => {
         <div className="product-list">
             {products.filter((item) => item.category === category || category === undefined)
                      .map   ((item) => 
-                        <LazyLoad height={380}>
+                        <LazyLoad height={380} key={uniqid()}>
                             <Product data={item} key={uniqid()} />
                         </LazyLoad>
             )}

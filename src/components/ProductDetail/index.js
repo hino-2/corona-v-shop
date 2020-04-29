@@ -1,5 +1,6 @@
 import React, 
-    { useContext, useState, useEffect } from 'react';
+    { useContext, 
+      useState, useEffect }  from 'react';
 import { Link }              from "react-router-dom";
 import { GeneralContext }    from '../GeneralContext';
 import uniqid                from "uniqid";
@@ -7,6 +8,7 @@ import Button                from '@material-ui/core/Button';
 import { makeStyles }        from '@material-ui/core/styles';
 import { Image, 
          Transformation }    from 'cloudinary-react';
+import { isMobile }          from '../../utils';
 import './style.scss';
 
 const useStyles = makeStyles({
@@ -53,7 +55,11 @@ const ProductDetail = ({ match }) => {
                          minWidth: "100%", 
                          gridColumn: "1/4"}}>
                 <Image cloudName="hino-2" publicId={`v1/corona-v-shop/${photo.replace('/img/', '')}`}>
-                    <Transformation height="500" quality="auto:low" crop="scale" />
+                    {
+                        isMobile() ? 
+                            <Transformation height="300" width="400" quality="auto:low" crop="fit" /> : 
+                            <Transformation height="500" width="700" quality="auto:low" crop="fit" /> 
+                    }
                 </Image>
             </div>
             <div style={{textAlign: "left", gridColumn: "1/3"}}>

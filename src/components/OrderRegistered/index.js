@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GeneralContext }    from '../GeneralContext';
 
 const OrderRegistered = (props) => {
+    const context = useContext(GeneralContext);
+
     if(!props.history.location.state)
         return null;
 
@@ -9,6 +12,13 @@ const OrderRegistered = (props) => {
         left: 0, 
         behavior: 'smooth'
     });
+
+    const thereIsALoggedInUser = () => {
+        if(!context.user || Object.keys(context.user).length === 0)
+            return false;
+
+        return true;
+    }
     
     const {location: { state: { orderID } }} = props;
 
@@ -24,7 +34,9 @@ const OrderRegistered = (props) => {
                 { orderID }
             </font>
             &nbsp;(LOL)<br />
-            отправлен нашему менеджеру (нет)<br />
+            отправлен нашему менеджеру (нет)
+            { thereIsALoggedInUser() ? <>,<br />а письмо с заказом вам на почту (да)<br /></> : '' }
+            <br />
             <br />
             Спасибо за покупку<br />
             Заходите к нам еще

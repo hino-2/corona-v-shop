@@ -8,6 +8,7 @@ import { Image,
     Transformation }        from 'cloudinary-react';
 import NavBarCart           from '../NavBarCart';
 import { GeneralContext }   from '../GeneralContext';
+import { isMobile }         from '../../utils';
 import './style.scss';
 
 const useStyles = makeStyles({
@@ -62,20 +63,20 @@ const NavBar = () => {
 
     return(
         <div className="navbar">
-            <div className="title">
-                <div>
-                    <Link to="/" style={{"textDecoration": "none"}}>
-                        {title}
-                    </Link>
-                </div>
-                {window.innerWidth > 760 ? 
+            { isMobile() ? [] :
+                <div className="title">
+                    <div>
+                        <Link to="/" style={{"textDecoration": "none"}}>
+                            {title}
+                        </Link>
+                    </div>
                     <div>
                         <Link to="/" style={{"textDecoration": "none"}}>
                             {subtitle}
                         </Link>
                     </div> 
-                : '' }
-            </div>
+                </div>
+            }
             <div className="logo">
                 <Link to="/">
                     <Image cloudName="hino-2" publicId={`v1/corona-v-shop/logo.png`}>

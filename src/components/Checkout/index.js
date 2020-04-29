@@ -75,11 +75,10 @@ const Checkout = () => {
             );
         }, (deliveryResultDiv.innerHTML === '<br>' ? 0 : 500));
         
-        deliveryResultDiv.scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('#register-order-button').scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
     const registerNewOrder = async (order) => {
-        console.log(order)
         if(isNaN(order.total))
             return;
 
@@ -140,6 +139,7 @@ const Checkout = () => {
                             root: classes.root,
                             label: classes.label,
                         }} 
+                        id="register-order-button"
                         onClick={() => registerNewOrder({
                             userID: (context.user && context.user.userID) || undefined, 
                             listOfProducts: cart, 
@@ -150,6 +150,7 @@ const Checkout = () => {
                     </Button>
                     : 
                     <Button
+                        id="register-order-button"
                         disabled
                         classes={{
                             root: classes.root,
