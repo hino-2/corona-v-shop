@@ -17,6 +17,11 @@ const Logout = () => {
                 },
                 body: JSON.stringify({"userID": context.user.userID})
             });
+            if(responce.status !== 200) {
+                history.push("/");
+                return;
+            }
+            
             const result = await responce.json();
 
             if(result.result === 'success') {

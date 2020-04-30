@@ -78,7 +78,7 @@ const CartItem = ({ data }) => {
 						root: classes.root,
 						label: classes.label,
 					}}
-					onClick={() => context.addProductsToCart(data)}>
+					onClick={() => context.addProductToCart(data)}>
 					+
 				</Button>
 			</div>

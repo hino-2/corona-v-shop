@@ -17,7 +17,7 @@ export const ContextProvider = (props) => {
                 products: productsJSON,
                 cart: [...prevContext.cart, product],
                 user: prevContext.user,
-                addProductsToCart: addProductToCart,
+                addProductToCart: addProductToCart,
                 removeProductFromCart: removeProductFromCart,
                 emptyCart: emptyCart,
                 setUser: setUser
@@ -36,7 +36,7 @@ export const ContextProvider = (props) => {
                 products: productsJSON,
                 cart: newCart,
                 user: prevContext.user,
-                addProductsToCart: addProductToCart,
+                addProductToCart: addProductToCart,
                 removeProductFromCart: removeProductFromCart,
                 emptyCart: emptyCart,
                 setUser: setUser
@@ -50,7 +50,7 @@ export const ContextProvider = (props) => {
                 products: productsJSON,
                 cart: [],
                 user: prevContext.user,
-                addProductsToCart: addProductToCart,
+                addProductToCart: addProductToCart,
                 removeProductFromCart: removeProductFromCart,
                 emptyCart: emptyCart,
                 setUser: setUser
@@ -64,7 +64,7 @@ export const ContextProvider = (props) => {
                 products: productsJSON,
                 cart: prevContext.cart,
                 user: user,
-                addProductsToCart: addProductToCart,
+                addProductToCart: addProductToCart,
                 removeProductFromCart: removeProductFromCart,
                 emptyCart: emptyCart,
                 setUser: setUser
@@ -76,7 +76,7 @@ export const ContextProvider = (props) => {
         products: productsJSON,
         cart: [],
         user: user,
-        addProductsToCart: addProductToCart,
+        addProductToCart: addProductToCart,
         removeProductFromCart: removeProductFromCart,
         emptyCart: emptyCart,
         setUser: setUser

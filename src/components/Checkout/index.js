@@ -90,6 +90,19 @@ const Checkout = () => {
             },
             body: JSON.stringify({order: order})
         });
+        if(responce.status !== 200) {
+            setDeliveryAddress(<>
+                <div className="message">
+                    Создание заказа не удалось<br />
+                    Жаловаться сюда:&nbsp;
+                        <a href='mailto:info-corona@mail.ru'>почта для жалований</a>
+                </div>                
+            </>);
+            setDeliveryPrice('');
+            setTotal('');
+            return;
+        }
+
         const result = await responce.json();
 
         if(result.orderID)
@@ -105,7 +118,7 @@ const Checkout = () => {
     useEffect(() => {
         ecomStartWidget({
             // id: 448,   // localhost
-            // id: 457,      // gcloud
+            // id: 457,   // gcloud
             id: (window.location.href.match('localhost') ? 448 : 457),
             callbackFunction: getDeliveryInfoFromPochta,
             containerId: 'ecom-widget'

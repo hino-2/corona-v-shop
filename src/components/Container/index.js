@@ -13,8 +13,7 @@ import Register        from '../Register';
 import AddMoney        from '../AddMoney';
 import './style.scss'
 
-const Container = ({ location }) => {
-  return (
+const Container = ({ location }) => (
     <div className="app">
         <TransitionGroup className="transition-group">
             <CSSTransition
@@ -39,7 +38,6 @@ const Container = ({ location }) => {
             </CSSTransition>
       </TransitionGroup>        
     </div>
-  );
-}
+);
 
 export default withRouter(Container);

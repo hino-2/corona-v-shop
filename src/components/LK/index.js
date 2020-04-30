@@ -44,6 +44,16 @@ const LK = () => {
                 },
                 body: JSON.stringify({userID: userID})
             });
+            if(responce.status !== 200) {
+                setListOfOrders(<>
+                    <div className="message">
+                        Не удалось получить список заказов<br />
+                        Жаловаться сюда:&nbsp;
+                            <a href='mailto:info-corona@mail.ru'>почта для жалований</a>
+                    </div>                
+                </>);
+                return;
+            }
             const listOfOrders = await responce.json();
 
             if(listOfOrders) 

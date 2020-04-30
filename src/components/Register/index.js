@@ -35,9 +35,9 @@ const Register = () => {
         document.querySelector('#email').value    = '';
         document.querySelector('#password').value = '';
         setMessage(
-            <div style={{display: "block", textAlign: "center"}}>
+            <div className="message">
                 Вы зарегистрированы<br />
-                Через 3 секунды появится страница входа
+                Когда дочитаете эту фразу, появится страница входа
             </div>
         );
         setTimeout(() => {
@@ -51,7 +51,7 @@ const Register = () => {
         const email = document.querySelector('#email').value;
         const pass  = document.querySelector('#password').value;
 
-        if(!email || !pass || !name) return
+        if(!email || !pass || !name) return;
         
         const responce = await fetch('/register', {
             method: 'POST',
@@ -61,6 +61,17 @@ const Register = () => {
             },
             body: JSON.stringify({"name": name, "email": email, "password": pass})
         });
+        if(responce.status !== 200) {
+            setMessage(
+                <div className="message">
+                    Регистрация не удалась<br />
+                    Жаловаться сюда:&nbsp;
+                        <a href='mailto:info-corona@mail.ru'>почта для жалований</a>
+                </div>
+            );
+            return;
+        }
+
         const result = await responce.json();
 
         switch (result.result) {
@@ -68,10 +79,20 @@ const Register = () => {
                 handleSuccessfulRegistration();
                 break;
             case 'existing email':
-                setMessage('Пользователь с такой электронной почтой уже зарегистрирован');
+                setMessage(
+                    <div className="message">
+                        Пользователь с такой электронной почтой уже зарегистрирован
+                    </div>
+                );
                 break;
             default:
-                setMessage('Регистрация не удалась');
+                setMessage(
+                    <div className="message">
+                        Случилось нечто очень странное<br />
+                        Жаловаться сюда:&nbsp;
+                            <a href='mailto:info-corona@mail.ru'>почта для жалований</a>
+                    </div>
+                );                
                 break;
         }
     }

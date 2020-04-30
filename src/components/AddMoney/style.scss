@@ -6,6 +6,17 @@ $gray: #9b9b9b;
 .addmoney-container{
     display: block;
     width: 100%;
+    margin-top: 150px;
+}
+
+.card-info {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  width: 100%;
+
+  div {
+    width: 98%;
+  }
 }
 
 .form__label-sum {
@@ -15,6 +26,12 @@ $gray: #9b9b9b;
   transition: 0.2s;
   font-size: 1rem;
   color: $gray;
+}
+
+.form__field:placeholder-shown ~ .form__label-sum {
+  font-size: 4rem;
+  cursor: text;
+  top: 20px;
 }
 
 .form__field:focus {
@@ -32,12 +49,6 @@ $gray: #9b9b9b;
   border-width: 3px;
   border-image: linear-gradient(to right, $primary, $secondary);
   border-image-slice: 1;
-}
-
-.form__field:placeholder-shown ~ .form__label-sum {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
 }
 
 /* reset input */

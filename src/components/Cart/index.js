@@ -45,7 +45,8 @@ const Cart = () => {
 
     return (
         <div className="cart">
-            { cart.map((item) => <CartItem data={item} key={uniqid()} />) }
+            { cart.map((item) => 
+                <CartItem data={item} key={uniqid()} />) }
             <div className="cart-total">
                 <div>
                     {cart.length > 0 ? 

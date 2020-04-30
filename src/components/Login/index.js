@@ -47,6 +47,16 @@ const Login = () => {
             },
             body: JSON.stringify({"email": email, "password": pass})
         });
+        if(responce.status !== 200) {
+            setMessage(<>
+                <div className="message">
+                    Не удалось авторизоваться<br />
+                    Жаловаться сюда:&nbsp;
+                        <a href='mailto:info-corona@mail.ru'>почта для жалований</a>
+                </div>                
+            </>);
+            return;
+        }
         const user = await responce.json();
 
         if(user.userID) {

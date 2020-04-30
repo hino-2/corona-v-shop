@@ -101,7 +101,7 @@ const ProductDetail = ({ match }) => {
                 <Button classes={{
                     root: classes.root,
                     label: classes.label,
-                }} onClick={() => context.addProductsToCart(product)}>
+                }} onClick={() => context.addProductToCart(product)}>
                     +
                 </Button>
             </div>
