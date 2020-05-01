@@ -136,7 +136,7 @@ const AddMoney = () => {
         if(result.result === 'money added') {
             setMessage(
                 <div className="message">
-                    { `Добавили ${amountToAdd} ₽ вам на счет` }<br />
+                    Добавили {amountToAdd} ₽ вам на счет<br />
                     Возвращаем в магазин
                 </div>            
             );
@@ -149,7 +149,7 @@ const AddMoney = () => {
             const cookie = new Cookies();
             cookie.set('user', updatedUserInfo, {path: "/", maxAge: 3600});            
             context.setUser(updatedUserInfo);
-            
+
             setTimeout(() => {
                 if(history.location.pathname !== '/')
                     history.push('/');
