@@ -82,7 +82,7 @@ const Checkout = () => {
         if(isNaN(order.total))
             return;
 
-        const responce = await fetch('/registerOrder', {
+        const response = await fetch('/registerOrder', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -90,7 +90,7 @@ const Checkout = () => {
             },
             body: JSON.stringify({order: order})
         });
-        if(responce.status !== 200) {
+        if(response.status !== 200) {
             setDeliveryAddress(<>
                 <div className="message">
                     Создание заказа не удалось<br />
@@ -103,7 +103,7 @@ const Checkout = () => {
             return;
         }
 
-        const result = await responce.json();
+        const result = await response.json();
 
         if(result.orderID)
             context.emptyCart();

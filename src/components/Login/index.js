@@ -39,7 +39,7 @@ const Login = () => {
 
         if(!email || !pass) return
         
-        const responce = await fetch('/login', {
+        const response = await fetch('/login', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -47,7 +47,7 @@ const Login = () => {
             },
             body: JSON.stringify({"email": email, "password": pass})
         });
-        if(responce.status !== 200) {
+        if(response.status !== 200) {
             setMessage(<>
                 <div className="message">
                     Не удалось авторизоваться<br />
@@ -57,7 +57,7 @@ const Login = () => {
             </>);
             return;
         }
-        const user = await responce.json();
+        const user = await response.json();
 
         if(user.userID) {
             const cookie = new Cookies();
@@ -65,7 +65,11 @@ const Login = () => {
             context.setUser(user);
             history.push("/");
         } else {
-            setMessage('Неправильный e-mail или пароль')
+            setMessage(
+                <div className="message">
+                    Неправильный e-mail или пароль
+                </div>
+            );
         }
     }
 

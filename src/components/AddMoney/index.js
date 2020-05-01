@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
-import { Link }              from "react-router-dom";
+import React, { useContext,
+                useState }   from 'react';
+import { Link, useHistory }  from "react-router-dom";
+import Cookies               from 'universal-cookie';
 import Button                from '@material-ui/core/Button';
 import { makeStyles }        from '@material-ui/core/styles';
 import { GeneralContext }    from '../GeneralContext';
@@ -7,7 +9,7 @@ import './style.scss';
 
 const useStyles = makeStyles({
     root: {
-        marginTop: "150px",
+        marginTop: "100px",
         background: '#df641a',
         borderRadius: 3,
         border: 0,
@@ -25,7 +27,9 @@ const useStyles = makeStyles({
 
 const AddMoney = () => {
     const classes = useStyles();
+    const history = useHistory();
     const context = useContext(GeneralContext);
+    const [message, setMessage] = useState();
 
     const thereIsALoggedInUser = () => {
         if(!context.user || Object.keys(context.user).length === 0)
@@ -63,7 +67,7 @@ const AddMoney = () => {
                     formattedCardNumber += item;
         });
 
-        cardInputElem.value = formattedCardNumber.replace(/\s$/, '').replace(/[A-Z]/gi, '');
+        cardInputElem.value = formattedCardNumber.replace(/\s$/, '').replace(/[A-Z]/gi, '').slice(0, 19);
     }
 
     const formatCardDate = (e) => {
@@ -81,7 +85,76 @@ const AddMoney = () => {
                     formattedCardDate += item;
         });
 
-        cardInputElem.value = formattedCardDate.replace(/\/$/, '').replace(/[A-Z]/gi, '');
+        cardInputElem.value = formattedCardDate.replace(/\/$/, '').replace(/[A-Z]/gi, '').slice(0, 5);
+    }
+
+    const addMoneyToAccount = async () => {
+        const amountToAdd = document.querySelector('#summa').value;
+        const cardNumber  = document.querySelector('#card-num').value;
+        const cardDate    = document.querySelector('#card-date').value;
+        const cardCVC     = document.querySelector('#card-cvc').value;
+
+        if(isNaN(amountToAdd) || 
+           amountToAdd === 0 || 
+           !cardNumber || 
+           cardNumber.length !== 19 ||
+           !cardDate || 
+           cardDate.length !== 5 ||
+           !cardCVC ||
+           cardCVC.length !== 3) 
+           return;
+
+        const response = await fetch('/addMoney', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({
+                userID: context.user.userID, 
+                amount: amountToAdd,
+                cardInfo: {
+                    cardNumber: cardNumber,
+                    cardDate: cardDate,
+                    cardCVC: cardCVC
+                }
+            })
+        });
+
+        if(response.status !== 200) {
+            setMessage(<>
+                <div className="message">
+                    Не удалось пополнить счет<br />
+                    Жаловаться сюда:&nbsp;
+                        <a href='mailto:info-corona@mail.ru'>почта для жалований</a>
+                </div>                
+            </>);
+            return;           
+        }
+
+        const result = await response.json();
+        if(result.result === 'money added') {
+            setMessage(
+                <div className="message">
+                    { `Добавили ${amountToAdd} ₽ вам на счет` }<br />
+                    Возвращаем в магазин
+                </div>            
+            );
+
+            const updatedUserInfo = {
+                userID: context.user.userID,
+                username: context.user.username,
+                saldo: context.user.saldo += parseInt(amountToAdd)
+            };
+            const cookie = new Cookies();
+            cookie.set('user', updatedUserInfo, {path: "/", maxAge: 3600});            
+            context.setUser(updatedUserInfo);
+            
+            setTimeout(() => {
+                if(history.location.pathname !== '/')
+                    history.push('/');
+            }, 3000);
+        }
     }
 
     return (
@@ -142,9 +215,11 @@ const AddMoney = () => {
                 classes={{
                     root: classes.root,
                     label: classes.label,
-                }}>
+                }}
+                onClick={() => {addMoneyToAccount()}}>
                 ПОПОЛНИТЬ
             </Button>
+            { message }
         </div>
     );
 }

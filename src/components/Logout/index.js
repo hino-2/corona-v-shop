@@ -9,7 +9,7 @@ const Logout = () => {
 
     useEffect(() => {
         const doLogout = async () => {
-            const responce = await fetch('/logoutUser?_method=DELETE', {
+            const response = await fetch('/logoutUser?_method=DELETE', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -17,12 +17,12 @@ const Logout = () => {
                 },
                 body: JSON.stringify({"userID": context.user.userID})
             });
-            if(responce.status !== 200) {
+            if(response.status !== 200) {
                 history.push("/");
                 return;
             }
             
-            const result = await responce.json();
+            const result = await response.json();
 
             if(result.result === 'success') {
                 context.setUser({})

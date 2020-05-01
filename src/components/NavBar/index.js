@@ -49,9 +49,9 @@ const NavBar = () => {
     useEffect(() => {
         if(thereIsALoggedInUser()) {
             setUsername(context.user.username);
-            setSaldo(
+            setSaldo(                
                 <font style={{color: "white", fontSize:"12px", paddingTop: "2px"}}> 
-                    {`Счёт: ${context.user.saldo} ₽`} 
+                    { `На счёте: ${context.user.saldo} ₽` }
                 </font>
             );
             return;

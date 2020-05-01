@@ -53,7 +53,7 @@ const Register = () => {
 
         if(!email || !pass || !name) return;
         
-        const responce = await fetch('/register', {
+        const response = await fetch('/register', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -61,7 +61,7 @@ const Register = () => {
             },
             body: JSON.stringify({"name": name, "email": email, "password": pass})
         });
-        if(responce.status !== 200) {
+        if(response.status !== 200) {
             setMessage(
                 <div className="message">
                     Регистрация не удалась<br />
@@ -72,7 +72,7 @@ const Register = () => {
             return;
         }
 
-        const result = await responce.json();
+        const result = await response.json();
 
         switch (result.result) {
             case 'success':

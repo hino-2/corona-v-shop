@@ -36,7 +36,7 @@ const LK = () => {
 
     useEffect(() => {
         const getListOfExistingOrders = async () => {
-            const responce = await fetch('/getOrders', {
+            const response = await fetch('/getOrders', {
                 method: 'POST',
                 headers: {
                   'Accept': 'application/json',
@@ -44,7 +44,7 @@ const LK = () => {
                 },
                 body: JSON.stringify({userID: userID})
             });
-            if(responce.status !== 200) {
+            if(response.status !== 200) {
                 setListOfOrders(<>
                     <div className="message">
                         Не удалось получить список заказов<br />
@@ -54,7 +54,7 @@ const LK = () => {
                 </>);
                 return;
             }
-            const listOfOrders = await responce.json();
+            const listOfOrders = await response.json();
 
             if(listOfOrders) 
                 setListOfOrders(
