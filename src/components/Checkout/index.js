@@ -93,7 +93,7 @@ const Checkout = () => {
         if(response.status !== 200) {
             setDeliveryAddress(<>
                 <div className="message">
-                    Создание заказа не удалось<br />
+                    Не удалось создать заказ<br />
                     Жаловаться сюда:&nbsp;
                         <a href='mailto:info-corona@mail.ru'>почта для жалований</a>
                 </div>                

@@ -64,7 +64,7 @@ const Register = () => {
         if(response.status !== 200) {
             setMessage(
                 <div className="message">
-                    Регистрация не удалась<br />
+                    Не удалось зарегистрироваться<br />
                     Жаловаться сюда:&nbsp;
                         <a href='mailto:info-corona@mail.ru'>почта для жалований</a>
                 </div>
