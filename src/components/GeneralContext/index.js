@@ -1,90 +1,134 @@
-import React, { useState, 
-                createContext } from 'react';
-import Cookies                  from 'universal-cookie';
-import productsJSON             from './products.json';
+import React, { useState, createContext, useEffect } from "react";
+import Cookies from "universal-cookie";
 
 export const GeneralContext = createContext();
 
 export const ContextProvider = (props) => {
-    const cookies = new Cookies();
-    const [user, _setUser] = useState(cookies.get('user'));
+	useEffect(() => {
+		(async function () {
+			const response = await fetch("/products/all", {
+				headers: {
+					Accept: "application/json",
+				},
+			});
+			const products = await response.json();
+			setContext((prevContext) => {
+				return {
+					...prevContext,
+					products: products,
+				};
+			});
+		})();
+	}, []);
 
-    // TODO: сделать что-то с повторяющимися объектами ффс
+	useEffect(() => {
+		(async function () {
+			const response = await fetch("/categories", {
+				headers: {
+					Accept: "application/json",
+				},
+			});
+			const categories = await response.json();
+			setContext((prevContext) => {
+				return {
+					...prevContext,
+					categories: categories,
+				};
+			});
+		})();
+	}, []);
 
-    const addProductToCart = (product) => {
-        setContext(prevContext => { 
-            return {
-                products: productsJSON,
-                cart: [...prevContext.cart, product],
-                user: prevContext.user,
-                addProductToCart: addProductToCart,
-                removeProductFromCart: removeProductFromCart,
-                emptyCart: emptyCart,
-                setUser: setUser
-            }
-        });
-    };
+	useEffect(() => {
+		(async function () {
+			const response = await fetch("/productsAmount/all", {
+				headers: {
+					Accept: "application/json",
+				},
+			});
+			const productsTotalAmount = await response.json();
+			setContext((prevContext) => {
+				return {
+					...prevContext,
+					productsTotalAmount: productsTotalAmount,
+				};
+			});
+		})();
+	}, []);
 
-    const removeProductFromCart = (id) => {
-        setContext(prevContext => { 
-            const newCart = prevContext.cart;
-            const deleteFrom = newCart.indexOf(newCart.find((item) => item.id === id));
-            if(deleteFrom > -1)
-                newCart.splice(deleteFrom, 1);
+	const cookies = new Cookies();
+	const [user, _setUser] = useState(cookies.get("user"));
 
-            return {
-                products: productsJSON,
-                cart: newCart,
-                user: prevContext.user,
-                addProductToCart: addProductToCart,
-                removeProductFromCart: removeProductFromCart,
-                emptyCart: emptyCart,
-                setUser: setUser
-            }
-        });
-    };
+	const addProductToCart = (product) => {
+		setContext((prevContext) => {
+			return {
+				...prevContext,
+				cart: [...prevContext.cart, product],
+			};
+		});
+	};
 
-    const emptyCart = () => {
-        setContext(prevContext => {
-            return {
-                products: productsJSON,
-                cart: [],
-                user: prevContext.user,
-                addProductToCart: addProductToCart,
-                removeProductFromCart: removeProductFromCart,
-                emptyCart: emptyCart,
-                setUser: setUser
-            }
-        })
-    }
+	const removeProductFromCart = (id) => {
+		setContext((prevContext) => {
+			// const newCart = prevContext.cart;
+			// const deleteFrom = newCart.indexOf(newCart.find((item) => item.id === id));
+			// if (deleteFrom > -1) newCart.splice(deleteFrom, 1);
 
-    const setUser = (user) => {
-        setContext(prevContext => {
-            return {
-                products: productsJSON,
-                cart: prevContext.cart,
-                user: user,
-                addProductToCart: addProductToCart,
-                removeProductFromCart: removeProductFromCart,
-                emptyCart: emptyCart,
-                setUser: setUser
-            }
-        })
-    }
+			return {
+				...prevContext,
+				cart: prevContext.cart.filter((item) => item.id !== id),
+			};
+		});
+	};
 
-    const [context, setContext] = useState({
-        products: productsJSON,
-        cart: [],
-        user: user,
-        addProductToCart: addProductToCart,
-        removeProductFromCart: removeProductFromCart,
-        emptyCart: emptyCart,
-        setUser: setUser
-    });
-    
-    return (
-        <GeneralContext.Provider value={context}>
-            {props.children}
-        </GeneralContext.Provider>
-    );
-}
+	const emptyCart = () => {
+		setContext((prevContext) => {
+			return {
+				...prevContext,
+				cart: [],
+			};
+		});
+	};
+
+	const setUser = (user) => {
+		setContext((prevContext) => {
+			return {
+				...prevContext,
+				user: user,
+			};
+		});
+	};
+
+	const setProducts = (products) => {
+		setContext((prevContext) => {
+			return {
+				...prevContext,
+				products: products,
+			};
+		});
+	};
+
+	const setProductsAmount = (productsTotalAmount) => {
+		setContext((prevContext) => {
+			return {
+				...prevContext,
+				productsTotalAmount: productsTotalAmount,
+			};
+		});
+	};
+
+	const [context, setContext] = useState({
+		products: [],
+		productsTotalAmount: 0,
+		categories: [],
+		cart: [],
+		user: user,
+		addProductToCart: addProductToCart,
+		removeProductFromCart: removeProductFromCart,
+		emptyCart: emptyCart,
+		setUser: setUser,
+		setProducts: setProducts,
+		setProductsAmount: setProductsAmount,
+	});
+
+	return <GeneralContext.Provider value={context}>{props.children}</GeneralContext.Provider>;
+};
