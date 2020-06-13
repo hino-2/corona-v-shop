@@ -9,6 +9,7 @@ import Login from "../Login";
 import Logout from "../Logout";
 import OrderRegistered from "../OrderRegistered";
 import LK from "../LK";
+import OrderDetails from "../OrderDetails";
 import Register from "../Register";
 import AddMoney from "../AddMoney";
 import "./style.scss";
@@ -29,6 +30,7 @@ const Container = ({ location }) => (
 						<Route path="/login" component={Login} />
 						<Route path="/logout" component={Logout} />
 						<Route path="/LK" component={LK} />
+						<Route path="/order/:orderId" component={OrderDetails} />
 						<Route path="/addMoney" component={AddMoney} />
 					</Switch>
 				</section>

@@ -62,7 +62,7 @@ const Login = () => {
 		}
 		const user = await response.json();
 
-		if (user.userID) {
+		if (user.id) {
 			const cookie = new Cookies();
 			cookie.set("corona-user", user, { path: "/", maxAge: 3600 });
 			context.setUser(user);

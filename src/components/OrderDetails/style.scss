@@ -1,0 +1,38 @@
+.order {
+	display: grid;
+	grid-auto-rows: minmax(50px, max-content);
+
+	.order-id {
+		color: white;
+		font-size: 24px;
+		justify-content: start;
+		padding: 5px 10px;
+	}
+
+	.header {
+		color: white;
+		font-size: 22px;
+		justify-content: start;
+		padding: 5px 10px;
+	}
+
+	.product-li {
+		display: grid;
+		grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+
+		.product-li-cell {
+			color: white;
+			font-size: 16px;
+			justify-content: center;
+			align-items: center;
+			padding: 3px 10px;
+		}
+	}
+
+	.total {
+		color: white;
+		font-size: 24px;
+		justify-content: start;
+		padding: 10px 10px;
+	}
+}

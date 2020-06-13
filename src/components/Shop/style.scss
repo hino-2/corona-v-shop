@@ -1,0 +1,8 @@
+.footer {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	padding-bottom: 30px;
+	justify-content: center;
+	align-items: center;
+	min-height: 40px;
+}

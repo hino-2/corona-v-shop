@@ -7,7 +7,7 @@ import "./style.scss";
 
 const ProductList = ({ category }) => {
 	const products = useContext(GeneralContext).products;
-	console.log("ProductList", products[0]);
+
 	return (
 		<div className="product-list">
 			{products
