@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { GeneralContext } from "../GeneralContext";
-import { fetchProductsByParams } from "../../utils";
+import { handleCategoryChange } from "../../utils";
 
 const useStyles = makeStyles({
 	root: {
@@ -26,10 +26,7 @@ const Category = ({ name }) => {
 	const context = useContext(GeneralContext);
 
 	const handleCategoryClick = async () => {
-		const products = await fetchProductsByParams(name);
-		const productsAmount = await fetchProductsAmountInCategory(name);
-		context.setProducts(products);
-		context.setProductsAmount(productsAmount);
+		handleCategoryChange(context, name);
 	};
 
 	return (
@@ -45,14 +42,3 @@ const Category = ({ name }) => {
 };
 
 export default Category;
-
-const fetchProductsAmountInCategory = async (category) => {
-	const response = await fetch(`/productsAmount/${category}`, {
-		headers: {
-			Accept: "application/json",
-		},
-	});
-	const productsTotalAmount = await response.json();
-
-	return productsTotalAmount;
-};

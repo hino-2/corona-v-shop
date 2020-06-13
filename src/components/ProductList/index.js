@@ -7,14 +7,14 @@ import "./style.scss";
 
 const ProductList = ({ category }) => {
 	const products = useContext(GeneralContext).products;
-	// console.log(products);
+	console.log("ProductList", products[0]);
 	return (
 		<div className="product-list">
 			{products
-				.filter((item) => item.category === category || category === undefined)
+				.filter((item) => item.category === category || category === "Все" || category === undefined)
 				.map((item) => (
 					<LazyLoad height={380} key={uniqid()}>
-						<Product data={item} key={uniqid()} />
+						<Product data={item} key={item._id} />
 					</LazyLoad>
 				))}
 		</div>
