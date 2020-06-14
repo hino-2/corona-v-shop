@@ -19,6 +19,12 @@
 		color: white;
 		font-size: 20px;
 		padding: 0 6px;
+		transition: all 0.2s;
+
+		&:hover {
+			transition: all 0.2s;
+			background-color: #bd571a;
+		}
 	}
 
 	button {
