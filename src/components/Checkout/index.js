@@ -68,8 +68,16 @@ const Checkout = () => {
 						</font>
 					</>
 				);
-				setDeliveryPrice(<>за {cashOfDelivery / 100} ₽</>);
-				setTotal(<>Итого {cart.reduce((total, item) => (total += item.price), 0) + cashOfDelivery / 100} ₽</>);
+				setDeliveryPrice(<>за {Number(cashOfDelivery / 100).toFixed(2)} ₽</>);
+				setTotal(
+					<>
+						Итого{" "}
+						{Number(cart.reduce((total, item) => (total += item.price), 0) + cashOfDelivery / 100).toFixed(
+							2
+						)}{" "}
+						₽
+					</>
+				);
 				divsWithDeliveryResultClass.forEach((item) => item.classList.add("delivery-result-fadein"));
 			},
 			deliveryResultDiv.innerHTML === "<br>" ? 0 : 500
@@ -130,7 +138,7 @@ const Checkout = () => {
 		<div className="checkout">
 			<div style={{ placeSelf: "center", margin: "30px" }}>
 				<font style={{ color: "#f67e22" }}>Доставить&nbsp;</font>
-				ваш заказ на сумму {cart.reduce((total, item) => (total += item.price), 0)} ₽&nbsp;
+				ваш заказ на сумму {Number(cart.reduce((total, item) => (total += item.price), 0)).toFixed(2)} ₽&nbsp;
 				<font style={{ color: "#f67e22" }}>в</font>
 			</div>
 			<div id="ecom-widget" style={{ height: "500px", width: "100%", placeContent: "center" }} />

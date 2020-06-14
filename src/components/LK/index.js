@@ -60,11 +60,13 @@ const LK = () => {
 						<Link to={`/order/${orderID}`} style={{ textDecoration: "none" }}>
 							<div className="lk-item" key={uniqid()}>
 								<div>{total} ₽</div>
-								<div>
-									<font style={{ color: "#f67e22" }}>{orderID}</font>
+								<div className="order-info">
+									<div>
+										<font style={{ color: "#f67e22" }}>{orderID}</font>
+									</div>
+									<div>{cityTo}</div>
+									<div>{addressTo}</div>
 								</div>
-								<div>{cityTo}</div>
-								<div>{addressTo}</div>
 							</div>
 						</Link>
 					))

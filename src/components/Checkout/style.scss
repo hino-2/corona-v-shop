@@ -1,21 +1,22 @@
 .checkout {
-    display: grid;
-    grid-template-rows: 1fr 4fr 1fr 1fr 1fr;
-    grid-auto-rows: minmax(20px, 500px);
-    width: 100%;
-    height: 920px;
-    font-size: 40px;
-    color: white;
+	display: grid;
+	grid-template-rows: 1fr 4fr 1fr 1fr 1fr;
+	grid-auto-rows: minmax(20px, 500px);
+	width: 100%;
+	height: 920px;
+	font-size: 40px;
+	color: white;
+	margin-bottom: 30px;
 }
 
 .delivery-result {
-    opacity: 0;
-    text-align: center; 
-    margin-top: 20px;
-    transition: opacity 0.5s;
+	opacity: 0;
+	text-align: center;
+	margin-top: 20px;
+	transition: opacity 0.5s;
 }
 
 .delivery-result-fadein {
-    opacity: 1;
-    transition: opacity 0.5s;
+	opacity: 1;
+	transition: opacity 0.5s;
 }
