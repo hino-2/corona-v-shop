@@ -6,29 +6,23 @@ export const GeneralContext = createContext();
 
 export const ContextProvider = (props) => {
 	const cookie = new Cookies();
-	const [user, _setUser] = useState(cookie.get("corona-user"));
-
-	useEffect(() => {
-		(async function () {
-			const categories = await fetchCategories();
-			setCategories([{ id: 1, name: "Все" }, ...categories]);
-		})();
-	}, []);
 
 	useEffect(() => {
 		(async function () {
 			const categoryFromCookie = cookie.get("corona-category");
 			const pageFromCookie = cookie.get("corona-page");
-			const products = await fetchAllProductsByCategory(categoryFromCookie, pageFromCookie);
-			setProducts(products);
-		})();
-	}, []);
+			const userFromCookie = cookie.get("corona-user");
 
-	useEffect(() => {
-		(async function () {
-			const categoryFromCookie = cookie.get("corona-category");
-			const productsTotalAmount = await fetchProductsTotalAmountByCategory(categoryFromCookie);
+			const [products, productsTotalAmount, categories] = await Promise.all([
+				fetchProductsByParams(categoryFromCookie, "asc", pageFromCookie),
+				fetchProductsAmountByParams(categoryFromCookie),
+				fetchCategories(),
+			]);
+
+			setProducts(products);
 			setProductsAmount(productsTotalAmount);
+			setCategories([{ id: 1, name: "Все" }, ...categories]);
+			setUser(userFromCookie);
 		})();
 	}, []);
 
@@ -130,38 +124,22 @@ export const ContextProvider = (props) => {
 		return categories;
 	};
 
-	const fetchAllProductsByCategory = async (category = "Все", page = 1) => {
-		const response = await fetch(`/products/${category}/asc/${page}`, {
-			headers: {
-				Accept: "application/json",
-			},
-		});
-		const products = await response.json();
-		return products;
-	};
+	const changeCategory = async (newCategory, namemask = undefined) => {
+		const [products, productsAmount] = await Promise.all([
+			fetchProductsByParams(newCategory, undefined, undefined, namemask),
+			fetchProductsAmountByParams(newCategory, namemask),
+		]);
 
-	const fetchProductsTotalAmountByCategory = async (category = "Все") => {
-		const response = await fetch(`/productsAmount/${category}`, {
-			headers: {
-				Accept: "application/json",
-			},
-		});
-		const productsTotalAmount = await response.json();
-		return productsTotalAmount;
-	};
-
-	const changeCategory = async (newCategory) => {
-		const products = await fetchProductsByParams(newCategory);
-		const productsAmount = await fetchProductsAmountByParams(newCategory);
 		cookie.set("corona-category", newCategory, { path: "/", maxAge: 3600 });
 		cookie.set("corona-page", 1, { path: "/", maxAge: 3600 });
+
 		setCategory(newCategory);
 		setProducts(products);
 		setProductsAmount(productsAmount);
 	};
 
-	const changePage = async (category, sorting, newPage) => {
-		const products = await fetchProductsByParams(category, sorting, newPage);
+	const changePage = async (category, sorting, newPage, namemask) => {
+		const products = await fetchProductsByParams(category, sorting, newPage, namemask);
 		setProducts(products);
 
 		cookie.set("corona-page", newPage, { path: "/", maxAge: 3600 });
@@ -173,14 +151,12 @@ export const ContextProvider = (props) => {
 		category: "",
 		categories: [],
 		cart: [],
-		user: user,
+		user: {},
 		addProductToCart: addProductToCart,
 		removeProductFromCart: removeProductFromCart,
 		emptyCart: emptyCart,
 		setUser: setUser,
-		setCategories: setCategories,
 		setProducts: setProducts,
-		setCategory: setCategory,
 		appendProducts: appendProducts,
 		setProductsAmount: setProductsAmount,
 		changeCategory: changeCategory,

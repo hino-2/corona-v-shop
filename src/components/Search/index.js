@@ -1,10 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { GeneralContext } from "../GeneralContext";
-import { fetchProductsByParams } from "../../utils";
+import { useHistory } from "react-router-dom";
 import "./style.scss";
 
 const Search = () => {
 	const context = useContext(GeneralContext);
+	const history = useHistory();
 	const [value, setValue] = useState("");
 
 	const handleValueChange = (e) => {
@@ -12,10 +13,9 @@ const Search = () => {
 	};
 
 	const handleButtonClick = async () => {
-		const products = await fetchProductsByParams("Все", "asc", 1, value);
+		context.changeCategory("search", value);
 		setValue("");
-		context.setProducts(products);
-		context.setProductsAmount(1);
+		history.push(`/category/search/${value}`);
 	};
 
 	const handleEnterPress = (e) => {

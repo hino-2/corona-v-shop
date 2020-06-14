@@ -11,7 +11,7 @@ const Shop = ({ match }) => (
 		<ProductList category={match.params.category} />
 		<div className="footer">
 			<Search />
-			<Pages category={match.params.category} />
+			<Pages category={match.params.category} namemask={match.params.namemask} />
 		</div>
 	</>
 );

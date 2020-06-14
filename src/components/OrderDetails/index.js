@@ -7,7 +7,6 @@ const OrderDetails = ({ match }) => {
 	let productsGroups = new Set();
 	let productTable = [];
 
-	console.log(order);
 	useEffect(() => {
 		(async function () {
 			const orderDetails = await fetchOrderDetails(match.params.orderId);
@@ -35,8 +34,6 @@ const OrderDetails = ({ match }) => {
 			});
 		});
 	}
-
-	console.log(productTable);
 
 	const fetchOrderDetails = async (orderId) => {
 		const result = await fetch(`/order/${orderId}`, {

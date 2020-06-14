@@ -57,8 +57,8 @@ const LK = () => {
 			if (listOfOrders)
 				setListOfOrders(
 					listOfOrders.map(({ orderID, total, delivery: { cityTo, addressTo } }) => (
-						<Link to={`/order/${orderID}`} style={{ textDecoration: "none" }}>
-							<div className="lk-item" key={uniqid()}>
+						<Link to={`/order/${orderID}`} style={{ textDecoration: "none" }} key={uniqid()}>
+							<div className="lk-item">
 								<div>{total} ₽</div>
 								<div className="order-info">
 									<div>

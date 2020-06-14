@@ -6,11 +6,11 @@ import { GeneralContext } from "../GeneralContext";
 import { isMobile } from "../../utils";
 import "./style.scss";
 
-const Pages = ({ category }) => {
+const Pages = ({ category, namemask }) => {
 	const DOCS_PER_PAGE = isMobile() ? 2 : 4;
 	const cookie = new Cookies();
 	const context = useContext(GeneralContext);
-	const pagesTotal = Math.ceil(context.productsTotalAmount / DOCS_PER_PAGE);
+	const pagesTotal = Math.ceil(context.productsTotalAmount / DOCS_PER_PAGE) || 1;
 
 	const [sorting, setSorting] = useState("asc");
 	const [page, setPage] = useState(isMobile() ? 2 : parseInt(cookie.get("corona-page")) || 1);
@@ -36,27 +36,29 @@ const Pages = ({ category }) => {
 				scrollingElement: { scrollHeight, scrollTop, clientHeight },
 			},
 		}) => {
-			const isEnd = scrollHeight - scrollTop - 250 <= clientHeight;
+			console.log(scrollHeight, scrollTop, clientHeight);
+			const isEnd = scrollHeight - scrollTop - 200 <= clientHeight;
 
 			if (isEnd) {
 				context.appendProducts(category, "asc", page + 1);
 				setPage((prev) => prev + 1);
+				// window.scrollBy(0, -200);
 			}
 		},
-		200
+		1000
 	);
 
 	const handlePageClick = async (newPage) => {
 		if (isNaN(newPage) || newPage === page) return;
 
-		context.changePage(category, sorting, newPage);
+		context.changePage(category, sorting, newPage, namemask);
 		setPage(newPage);
 	};
 
 	const handleSortingClick = async () => {
 		const newSorting = sorting === "asc" ? "desc" : "asc";
 
-		context.changePage(category, newSorting, page);
+		context.changePage(category, newSorting, page, namemask);
 		setSorting(newSorting);
 	};
 

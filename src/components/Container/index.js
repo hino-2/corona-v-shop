@@ -21,7 +21,7 @@ const Container = ({ location }) => (
 				<section className="route-section">
 					<Switch location={location}>
 						<Route path="/" exact component={Shop} />
-						<Route path="/category/:category" component={Shop} />
+						<Route path="/category/:category/:namemask?" component={Shop} />
 						<Route path="/product/:name" component={ProductDetail} />
 						<Route path="/cart" component={Cart} />
 						<Route path="/checkout" component={Checkout} />

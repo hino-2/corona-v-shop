@@ -25,7 +25,7 @@ const Category = ({ name }) => {
 	const classes = useStyles();
 	const context = useContext(GeneralContext);
 
-	const handleCategoryClick = async () => {
+	const handleCategoryClick = () => {
 		context.changeCategory(name);
 	};
 
