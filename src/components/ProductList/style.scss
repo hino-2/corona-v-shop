@@ -5,4 +5,9 @@
 	grid-template-columns: repeat(4, 1fr);
 	min-height: 360px;
 	padding: 10px 2px;
+
+	@media only screen and (max-width: 760px) {
+		grid-template-columns: repeat(2, 1fr);
+		// height: 80vh;
+	}
 }

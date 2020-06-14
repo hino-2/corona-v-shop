@@ -1,47 +1,63 @@
 import React, { useContext, useState, useEffect } from "react";
 import uniqid from "uniqid";
 import Cookies from "universal-cookie";
+import { debounce } from "lodash";
 import { GeneralContext } from "../GeneralContext";
-import { fetchProductsByParams } from "../../utils";
+import { isMobile } from "../../utils";
 import "./style.scss";
 
 const Pages = ({ category }) => {
-	const DOCS_PER_PAGE = 4;
+	const DOCS_PER_PAGE = isMobile() ? 2 : 4;
 	const cookie = new Cookies();
 	const context = useContext(GeneralContext);
 	const pagesTotal = Math.ceil(context.productsTotalAmount / DOCS_PER_PAGE);
 
 	const [sorting, setSorting] = useState("asc");
-	const [page, setPage] = useState(1);
-	const [categoryFromCookie, setCategoryFromCookie] = useState(cookie.get("corona-category"));
+	const [page, setPage] = useState(isMobile() ? 2 : parseInt(cookie.get("corona-page")) || 1);
 
-	let pagesArray = populatePagesArray(page, pagesTotal);
-
-	useEffect(() => {
-		const pageFromCookie = parseInt(cookie.get("corona-page")) || 1;
-		setPage(pageFromCookie);
-	}, []);
+	const pagesArray = populatePagesArray(page, pagesTotal);
 
 	useEffect(() => {
-		setPage(1);
-	}, [categoryFromCookie]);
+		// handle page refresh & category change from desktop
+		// also, load 4 (page * docs per page) docs if mobile
+		setPage(isMobile() ? 2 : parseInt(cookie.get("corona-page")) || 1);
+	}, [context.category]);
+
+	useEffect(() => {
+		if (!isMobile()) return;
+		window.addEventListener("scroll", handleScroll);
+
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, [page]);
+
+	const handleScroll = debounce(
+		async ({
+			target: {
+				scrollingElement: { scrollHeight, scrollTop, clientHeight },
+			},
+		}) => {
+			const isEnd = scrollHeight - scrollTop - 250 <= clientHeight;
+
+			if (isEnd) {
+				context.appendProducts(category, "asc", page + 1);
+				setPage((prev) => prev + 1);
+			}
+		},
+		200
+	);
 
 	const handlePageClick = async (newPage) => {
 		if (isNaN(newPage) || newPage === page) return;
 
-		const products = await fetchProductsByParams(category, sorting, newPage);
-		context.setProducts(products);
-
-		cookie.set("corona-page", newPage, { path: "/", maxAge: 3600 });
+		context.changePage(category, sorting, newPage);
 		setPage(newPage);
 	};
 
 	const handleSortingClick = async () => {
 		const newSorting = sorting === "asc" ? "desc" : "asc";
-		const products = await fetchProductsByParams(category, newSorting, page);
 
+		context.changePage(category, newSorting, page);
 		setSorting(newSorting);
-		context.setProducts(products);
 	};
 
 	return (

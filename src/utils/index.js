@@ -15,8 +15,8 @@ export const fetchProductsByParams = async (category = "Все", sorting = "asc"
 	return products;
 };
 
-export const fetchProductsAmountInCategory = async (category) => {
-	const response = await fetch(`/productsAmount/${category}`, {
+export const fetchProductsAmountByParams = async (category = "Все", namemask = "") => {
+	const response = await fetch(`/productsAmount/${category}/${namemask}`, {
 		headers: {
 			Accept: "application/json",
 		},
@@ -24,14 +24,4 @@ export const fetchProductsAmountInCategory = async (category) => {
 	const productsTotalAmount = await response.json();
 
 	return productsTotalAmount;
-};
-
-export const handleCategoryChange = async (context, newCategory) => {
-	const cookie = new Cookies();
-	const products = await fetchProductsByParams(newCategory);
-	const productsAmount = await fetchProductsAmountInCategory(newCategory);
-	cookie.set("corona-category", newCategory, { path: "/", maxAge: 3600 });
-	cookie.set("corona-page", 1, { path: "/", maxAge: 3600 });
-	context.setProducts(products);
-	context.setProductsAmount(productsAmount);
 };

@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Image, Transformation } from "cloudinary-react";
 import NavBarCart from "../NavBarCart";
 import { GeneralContext } from "../GeneralContext";
-import { isMobile, handleCategoryChange } from "../../utils";
+import { isMobile } from "../../utils";
 import "./style.scss";
 
 const useStyles = makeStyles({
@@ -50,7 +50,7 @@ const NavBar = () => {
 	};
 
 	const handleLogoTitleClick = async () => {
-		handleCategoryChange(context, "Все");
+		context.changeCategory("Все");
 	};
 
 	useEffect(() => {
@@ -107,6 +107,8 @@ const NavBar = () => {
 				) : (
 					`${username}`
 				)}
+				<br />
+				{saldo}
 			</div>
 			<div className="account">
 				<Link to={thereIsALoggedInUser() ? "/logout" : "/login"} style={{ textDecoration: "none" }}>
@@ -118,7 +120,6 @@ const NavBar = () => {
 						{thereIsALoggedInUser() ? "Выйти" : "Войти"}
 					</Button>
 				</Link>
-				{saldo}
 			</div>
 		</div>
 	);

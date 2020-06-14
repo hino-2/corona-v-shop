@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import uniqid from "uniqid";
 import { GeneralContext } from "../GeneralContext";
 import Product from "../Product";

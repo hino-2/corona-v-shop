@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { GeneralContext } from "../GeneralContext";
-import { handleCategoryChange } from "../../utils";
+import { isMobile } from "../../utils";
 
 const useStyles = makeStyles({
 	root: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 		borderRadius: 3,
 		border: 0,
 		color: "white",
-		height: 48,
+		height: isMobile() ? 28 : 48,
 		width: "100%",
 		lineHeight: "normal",
 		padding: "0 20px",
@@ -26,7 +26,7 @@ const Category = ({ name }) => {
 	const context = useContext(GeneralContext);
 
 	const handleCategoryClick = async () => {
-		handleCategoryChange(context, name);
+		context.changeCategory(name);
 	};
 
 	return (
