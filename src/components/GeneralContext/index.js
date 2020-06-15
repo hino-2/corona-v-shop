@@ -156,9 +156,7 @@ export const ContextProvider = (props) => {
 		removeProductFromCart: removeProductFromCart,
 		emptyCart: emptyCart,
 		setUser: setUser,
-		setProducts: setProducts,
 		appendProducts: appendProducts,
-		setProductsAmount: setProductsAmount,
 		changeCategory: changeCategory,
 		changePage: changePage,
 	});
