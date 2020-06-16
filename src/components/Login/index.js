@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Cookies from "universal-cookie";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { GeneralContext } from "../GeneralContext";
+import { logIn } from "../../logic/userManagement";
 import "./style.scss";
 
 const useStyles = makeStyles({
@@ -31,45 +31,21 @@ const Login = () => {
 	const history = useHistory();
 	const classes = useStyles();
 
+	const [email, setEmail] = useState("");
+	const [pass, setPass] = useState("");
 	const [message, setMessage] = useState("");
 
-	const logIn = async () => {
-		const email = document.querySelector("#email").value;
-		const pass = document.querySelector("#password").value;
+	const handleLogIn = async () => {
+		const result = await logIn(email, pass, context);
 
-		if (!email || !pass) return;
+		setMessage(messages[`${result}`]);
 
-		const response = await fetch("/login", {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email: email, password: pass }),
-		});
-		if (response.status !== 200) {
-			setMessage(
-				<>
-					<div className="message">
-						Не удалось авторизоваться
-						<br />
-						Жаловаться сюда:&nbsp;
-						<a href="mailto:info-corona@mail.ru">почта для жалований</a>
-					</div>
-				</>
-			);
-			return;
-		}
-		const user = await response.json();
+		if (result === 0) history.push("/");
+	};
 
-		if (user.id) {
-			const cookie = new Cookies();
-			cookie.set("corona-user", user, { path: "/", maxAge: 3600 });
-			context.setUser(user);
-			history.push("/");
-		} else {
-			setMessage(<div className="message">Неправильный e-mail или пароль</div>);
-		}
+	const handleFormChange = (e) => {
+		if (e.target.id === "email") setEmail(e.target.value);
+		if (e.target.id === "password") setPass(e.target.value);
 	};
 
 	return (
@@ -79,6 +55,8 @@ const Login = () => {
 				<input
 					type="input"
 					className="form__field"
+					value={email}
+					onChange={handleFormChange}
 					placeholder="E-mail"
 					id="email"
 					autoComplete="false"
@@ -89,7 +67,15 @@ const Login = () => {
 				</label>
 			</div>
 			<div className="form__group field">
-				<input type="password" className="form__field" placeholder="Пароль" id="password" required />
+				<input
+					type="password"
+					className="form__field"
+					value={pass}
+					onChange={handleFormChange}
+					placeholder="Пароль"
+					id="password"
+					required
+				/>
 				<label htmlFor="password" className="form__label">
 					Пароль
 				</label>
@@ -101,7 +87,7 @@ const Login = () => {
 						root: classes.root,
 						label: classes.label,
 					}}
-					onClick={() => logIn()}>
+					onClick={handleLogIn}>
 					Войти
 				</Button>
 			</div>
@@ -112,8 +98,7 @@ const Login = () => {
 						classes={{
 							root: classes.root,
 							label: classes.label,
-						}}
-						onClick={() => logIn()}>
+						}}>
 						Регистрация
 					</Button>
 				</Link>
@@ -124,3 +109,17 @@ const Login = () => {
 };
 
 export default Login;
+
+const messages = {
+	"1": (
+		<div className="message">
+			Не удалось авторизоваться
+			<br />
+			Жаловаться сюда:&nbsp;
+			<a href="mailto:info-corona@mail.ru">почта для жалований</a>
+		</div>
+	),
+	"3": <div className="message">Заполните все поля</div>,
+	"4": <div className="message">Такой e-mail не зарегистрирован</div>,
+	"5": <div className="message">Неправильный e-mail или пароль</div>,
+};

@@ -2,7 +2,99 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import { registerNewUser } from "../../logic/userManagement";
 import "./style.scss";
+
+const Register = () => {
+	const classes = useStyles();
+	const history = useHistory();
+
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [pass, setPass] = useState("");
+	const [message, setMessage] = useState("");
+
+	const handleUserRegistration = async () => {
+		const result = await registerNewUser(name, email, pass);
+		setMessage(messages[result]);
+
+		if (result === 0)
+			setTimeout(() => {
+				if (history.location.pathname !== "/login") history.push("/login");
+			}, 3000);
+	};
+
+	const handleFormChange = (e) => {
+		if (e.target.id === "name") setName(e.target.value);
+		if (e.target.id === "email") setEmail(e.target.value);
+		if (e.target.id === "password") setPass(e.target.value);
+	};
+
+	return (
+		<div className="register">
+			<div>&nbsp;</div>
+			<div className="form__group field">
+				<input
+					type="input"
+					className="form__field"
+					value={name}
+					onChange={handleFormChange}
+					placeholder="Имя"
+					id="name"
+					autoComplete="false"
+					required
+				/>
+				<label htmlFor="name" className="form__label">
+					Имя
+				</label>
+			</div>
+			<div className="form__group field">
+				<input
+					type="input"
+					className="form__field"
+					value={email}
+					onChange={handleFormChange}
+					placeholder="E-mail"
+					id="email"
+					autoComplete="false"
+					required
+				/>
+				<label htmlFor="email" className="form__label">
+					E-mail
+				</label>
+			</div>
+			<div className="form__group field">
+				<input
+					type="password"
+					className="form__field"
+					value={pass}
+					onChange={handleFormChange}
+					placeholder="Пароль"
+					id="password"
+					required
+				/>
+				<label htmlFor="password" className="form__label">
+					Пароль
+				</label>
+			</div>
+			<div>&nbsp;</div>
+			<div>
+				<Button
+					classes={{
+						root: classes.root,
+						label: classes.label,
+					}}
+					onClick={() => handleUserRegistration()}>
+					Зарегистрироваться
+				</Button>
+			</div>
+			<div>&nbsp;</div>
+			<div style={{ marginTop: "30px" }}>{message}</div>
+		</div>
+	);
+};
+
+export default Register;
 
 const useStyles = makeStyles({
 	root: {
@@ -24,120 +116,18 @@ const useStyles = makeStyles({
 	},
 });
 
-const Register = () => {
-	const history = useHistory();
-	const classes = useStyles();
-
-	const [message, setMessage] = useState("");
-
-	const handleSuccessfulRegistration = () => {
-		document.querySelector("#name").value = "";
-		document.querySelector("#email").value = "";
-		document.querySelector("#password").value = "";
-		setMessage(
-			<div className="message">
-				Вы зарегистрированы
-				<br />
-				Когда дочитаете эту фразу, появится страница входа
-			</div>
-		);
-		setTimeout(() => {
-			if (history.location.pathname !== "/login") history.push("/login");
-		}, 3000);
-	};
-
-	const registerNewUser = async () => {
-		const name = document.querySelector("#name").value;
-		const email = document.querySelector("#email").value;
-		const pass = document.querySelector("#password").value;
-
-		if (!email || !pass || !name) return;
-
-		const response = await fetch("/register", {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ name: name, email: email, password: pass }),
-		});
-		if (response.status === 500) {
-			setMessage(
-				<div className="message">
-					Не удалось зарегистрироваться
-					<br />
-					Жаловаться сюда:&nbsp;
-					<a href="mailto:info-corona@mail.ru">почта для жалований</a>
-				</div>
-			);
-			return;
-		}
-
-		const result = await response.json();
-
-		switch (result.result) {
-			case "success":
-				handleSuccessfulRegistration();
-				break;
-			case "existing email":
-				setMessage(<div className="message">Пользователь с такой электронной почтой уже зарегистрирован</div>);
-				break;
-			default:
-				setMessage(
-					<div className="message">
-						Случилось нечто очень странное
-						<br />
-						Жаловаться сюда:&nbsp;
-						<a href="mailto:info-corona@mail.ru">почта для жалований</a>
-					</div>
-				);
-				break;
-		}
-	};
-
-	return (
-		<div className="register">
-			<div>&nbsp;</div>
-			<div className="form__group field">
-				<input type="input" className="form__field" placeholder="Имя" id="name" autoComplete="false" required />
-				<label htmlFor="name" className="form__label">
-					Имя
-				</label>
-			</div>
-			<div className="form__group field">
-				<input
-					type="input"
-					className="form__field"
-					placeholder="E-mail"
-					id="email"
-					autoComplete="false"
-					required
-				/>
-				<label htmlFor="email" className="form__label">
-					E-mail
-				</label>
-			</div>
-			<div className="form__group field">
-				<input type="password" className="form__field" placeholder="Пароль" id="password" required />
-				<label htmlFor="password" className="form__label">
-					Пароль
-				</label>
-			</div>
-			<div>&nbsp;</div>
-			<div>
-				<Button
-					classes={{
-						root: classes.root,
-						label: classes.label,
-					}}
-					onClick={() => registerNewUser()}>
-					Зарегистрироваться
-				</Button>
-			</div>
-			<div>&nbsp;</div>
-			<div style={{ marginTop: "30px" }}>{message}</div>
-		</div>
-	);
-};
-
-export default Register;
+const messages = [
+	<div className="message">
+		Вы зарегистрированы
+		<br />
+		Когда дочитаете эту фразу, появится страница входа
+	</div>,
+	<div className="message">
+		Не удалось зарегистрироваться
+		<br />
+		Жаловаться сюда:&nbsp;
+		<a href="mailto:info-corona@mail.ru">почта для жалований</a>
+	</div>,
+	<div className="message">Пользователь с такой электронной почтой уже зарегистрирован</div>,
+	<div className="message">Заполните все поля</div>,
+];
