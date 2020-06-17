@@ -36,7 +36,6 @@ const Pages = ({ category, namemask }) => {
 				scrollingElement: { scrollHeight, scrollTop, clientHeight },
 			},
 		}) => {
-			console.log(scrollHeight, scrollTop, clientHeight);
 			const isEnd = scrollHeight - scrollTop - 200 <= clientHeight;
 
 			if (isEnd) {

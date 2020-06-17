@@ -9,19 +9,13 @@ const CategoryBar = () => {
 
 	return (
 		<div className="category-bar">
-			{categories
-				// .sort((a, b) => {
-				// 	if (a.name < b.name) return -1;
-				// 	if (b.name < a.name) return 1;
-				// 	return 0;
-				// })
-				.map((item) => (
-					<div key={`cat${item._id}`}>
-						<Link to={`/category/${item.name}`} style={{ textDecoration: "none" }}>
-							<Category name={item.name} />
-						</Link>
-					</div>
-				))}
+			{categories.map((item) => (
+				<div key={`cat${item._id}`}>
+					<Link to={`/category/${item.name}`} style={{ textDecoration: "none" }}>
+						<Category name={item.name} />
+					</Link>
+				</div>
+			))}
 		</div>
 	);
 };
