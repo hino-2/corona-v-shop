@@ -62,3 +62,9 @@ export const logOut = (context) => {
 	const cookie = new Cookies();
 	cookie.remove("corona-user");
 };
+
+export const thereIsALoggedInUser = (context) => {
+	if (!context.user || Object.keys(context.user).length === 0) return false;
+
+	return true;
+};

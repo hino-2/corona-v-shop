@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import uniqid from "uniqid";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { GeneralContext } from "../GeneralContext";
+import { getListOfExistingOrders } from "../../logic/orderManagement";
 import "./style.scss";
 
 const useStyles = makeStyles({
@@ -30,50 +30,20 @@ const LK = () => {
 	const userID = context.user && context.user.id;
 
 	const [listOfOrders, setListOfOrders] = useState([]);
+	const [message, setMessage] = useState("");
 	const classes = useStyles();
 
 	useEffect(() => {
-		const getListOfExistingOrders = async () => {
-			const response = await fetch(`/orders/${userID}`, {
-				headers: {
-					Accept: "application/json",
-				},
-			});
-			if (response.status !== 200) {
-				setListOfOrders(
-					<>
-						<div className="message">
-							Не удалось получить список заказов
-							<br />
-							Жаловаться сюда:&nbsp;
-							<a href="mailto:info-corona@mail.ru">почта для жалований</a>
-						</div>
-					</>
-				);
+		(async function () {
+			const result = await getListOfExistingOrders(userID);
+			if (result.status !== 0) {
+				setMessage(messages[1]);
 				return;
 			}
-			const listOfOrders = await response.json();
 
-			if (listOfOrders)
-				setListOfOrders(
-					listOfOrders.map(({ orderID, total, delivery: { cityTo, addressTo } }) => (
-						<Link to={`/order/${orderID}`} style={{ textDecoration: "none" }} key={uniqid()}>
-							<div className="lk-item">
-								<div>{total} ₽</div>
-								<div className="order-info">
-									<div>
-										<font style={{ color: "#f67e22" }}>{orderID}</font>
-									</div>
-									<div>{cityTo}</div>
-									<div>{addressTo}</div>
-								</div>
-							</div>
-						</Link>
-					))
-				);
-		};
-		getListOfExistingOrders();
-	}, []);
+			if (result.status === 0) setListOfOrders(result.listOfOrders);
+		})();
+	}, [userID]);
 
 	return (
 		<div style={{ display: "block" }}>
@@ -86,9 +56,34 @@ const LK = () => {
 					ПОПОЛНИТЬ СЧЁТ
 				</Button>
 			</Link>
-			{listOfOrders}
+			{listOfOrders.map(({ orderID, total, delivery: { cityTo, addressTo } }) => (
+				<Link to={`/order/${orderID}`} style={{ textDecoration: "none" }} key={`${orderID}`}>
+					<div className="lk-item">
+						<div>{total} ₽</div>
+						<div className="order-info">
+							<div>
+								<font style={{ color: "#f67e22" }}>{orderID}</font>
+							</div>
+							<div>{cityTo}</div>
+							<div>{addressTo}</div>
+						</div>
+					</div>
+				</Link>
+			))}
+			<div style={{ marginTop: "30px" }}>{message}</div>
 		</div>
 	);
 };
 
 export default LK;
+
+const messages = {
+	"1": (
+		<div className="message">
+			Не удалось получить список заказов
+			<br />
+			Жаловаться сюда:&nbsp;
+			<a href="mailto:info-corona@mail.ru">почта для жалований</a>
+		</div>
+	),
+};
