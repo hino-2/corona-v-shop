@@ -19,10 +19,15 @@ export const ContextProvider = (props) => {
 				fetchCategories(),
 			]);
 
-			setProducts(products);
-			setProductsAmount(productsTotalAmount);
-			setCategories([{ id: 1, name: "Все" }, ...categories]);
-			setUser(userFromCookie);
+			setContext((prev) => {
+				return {
+					...prev,
+					products: products,
+					productsTotalAmount: productsTotalAmount,
+					categories: [{ id: 1, name: "Все" }, ...categories],
+					user: userFromCookie,
+				};
+			});
 		})();
 	}, []);
 
@@ -101,15 +106,6 @@ export const ContextProvider = (props) => {
 			return {
 				...prevContext,
 				productsTotalAmount: productsTotalAmount,
-			};
-		});
-	};
-
-	const setCategories = (categories) => {
-		setContext((prevContext) => {
-			return {
-				...prevContext,
-				categories: categories,
 			};
 		});
 	};

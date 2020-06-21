@@ -8,6 +8,7 @@ import "./style.scss";
 const ProductList = () => {
 	const products = useContext(GeneralContext).products;
 
+	console.log("product list renders");
 	return (
 		<div className="product-list" key={uniqid()}>
 			{products.map((item) => (
