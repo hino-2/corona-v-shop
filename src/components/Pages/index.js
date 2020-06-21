@@ -1,15 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import uniqid from "uniqid";
 import Cookies from "universal-cookie";
 import { debounce } from "lodash";
-import { GeneralContext } from "../GeneralContext";
 import { isMobile } from "../../utils";
 import "./style.scss";
 
-const Pages = ({ category, namemask }) => {
+const Pages = ({ category, namemask, context }) => {
+	console.log("pages render");
 	const DOCS_PER_PAGE = isMobile() ? 2 : 4;
 	const cookie = new Cookies();
-	const context = useContext(GeneralContext);
 	const pagesTotal = Math.ceil(context.productsTotalAmount / DOCS_PER_PAGE) || 1;
 
 	const [sorting, setSorting] = useState("asc");
@@ -18,7 +17,7 @@ const Pages = ({ category, namemask }) => {
 	const pagesArray = populatePagesArray(page, pagesTotal);
 
 	useEffect(() => {
-		// handle page refresh & category change from desktop
+		// handle browser refresh & category change from desktop
 		// also, load 4 (page * docs per page) docs if mobile
 		setPage(isMobile() ? 2 : parseInt(cookie.get("corona-page")) || 1);
 	}, [context.category]);
@@ -84,7 +83,7 @@ const Pages = ({ category, namemask }) => {
 	);
 };
 
-export default Pages;
+export default React.memo(Pages);
 
 const populatePagesArray = (currentPage, pagesTotal) => {
 	let arr = [];
