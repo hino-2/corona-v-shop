@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,6 +13,12 @@ const Register = () => {
 	const [email, setEmail] = useState("");
 	const [pass, setPass] = useState("");
 	const [message, setMessage] = useState("");
+
+	const nameInput = useRef();
+
+	useEffect(() => {
+		nameInput.current.focus();
+	}, []);
 
 	const handleUserRegistration = async () => {
 		const result = await registerNewUser(name, email, pass);
@@ -39,6 +45,7 @@ const Register = () => {
 					className="form__field"
 					value={name}
 					onChange={handleFormChange}
+					ref={nameInput}
 					placeholder="Имя"
 					id="name"
 					autoComplete="false"

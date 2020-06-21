@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -35,6 +35,12 @@ const Login = () => {
 	const [pass, setPass] = useState("");
 	const [message, setMessage] = useState("");
 
+	const emailInput = useRef();
+
+	useEffect(() => {
+		emailInput.current.focus();
+	}, []);
+
 	const handleLogIn = async () => {
 		const result = await logIn(email, pass, context);
 
@@ -57,6 +63,7 @@ const Login = () => {
 					className="form__field"
 					value={email}
 					onChange={handleFormChange}
+					ref={emailInput}
 					placeholder="E-mail"
 					id="email"
 					autoComplete="false"
