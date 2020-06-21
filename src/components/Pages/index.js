@@ -6,7 +6,6 @@ import { isMobile } from "../../utils";
 import "./style.scss";
 
 const Pages = ({ category, namemask, context }) => {
-	console.log("pages render");
 	const DOCS_PER_PAGE = isMobile() ? 2 : 4;
 	const cookie = new Cookies();
 	const pagesTotal = Math.ceil(context.productsTotalAmount / DOCS_PER_PAGE) || 1;
